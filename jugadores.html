@@ -1,0 +1,196 @@
+<html><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Mi Personaje D&D</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#111;color:#e0ddd4;font-size:14px;line-height:1.5;padding:0 0 60px}
+.page{max-width:500px;margin:0 auto;padding:12px}
+h1{font-size:20px;font-weight:600;text-align:center;padding:12px 0 4px}
+.sub{font-size:13px;color:#888;text-align:center;margin-bottom:16px}
+.grp{font-size:11px;font-weight:700;color:#666;letter-spacing:1px;padding:12px 0 6px;border-bottom:1px solid #2a2a2a;margin-top:10px}
+.pc{display:block;width:100%;padding:14px;border:1px solid #333;border-radius:10px;margin:6px 0;background:#1a1a1a;color:#e0ddd4;text-align:left;font-family:inherit;font-size:14px;cursor:pointer;-webkit-tap-highlight-color:rgba(255,255,255,0.1)}
+.pc:active{background:#252525}
+.pc .nm{font-size:16px;font-weight:600}.pc .meta{font-size:12px;color:#888}.pc .rc{font-size:11px;color:#666}
+.pc .ri{float:right;text-align:right;font-size:12px;color:#777}
+.exp-badge{font-size:9px;background:#3a3a15;color:#dd8;padding:1px 5px;border-radius:4px;margin-left:4px;vertical-align:middle}
+.back{display:block;background:none;border:none;color:#888;font-size:14px;padding:10px 0;cursor:pointer;font-family:inherit}
+.nm2{font-size:24px;font-weight:600;margin-bottom:2px}
+.ti2{font-size:15px;color:#999;margin-bottom:2px}
+.me2{font-size:12px;color:#666;margin-bottom:14px}
+.tabbar{display:flex;border-bottom:2px solid #333;margin-bottom:12px;position:sticky;top:0;background:#111;z-index:5;padding-top:4px}
+.tabbar button{flex:1;padding:10px;border:none;background:none;color:#666;font-size:14px;font-family:inherit;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px}
+.tabbar button.on{color:#e0ddd4;font-weight:600;border-bottom-color:#e0ddd4}
+.qs{background:#1a1a1a;border-left:3px solid #666;border-radius:0 8px 8px 0;padding:10px 12px;margin-bottom:14px;font-size:13px;line-height:1.6}
+.qs b{display:block;font-size:11px;color:#888;margin-bottom:4px;font-weight:600}
+.hprow{display:flex;align-items:center;gap:8px;padding:8px 0;margin-bottom:8px}
+.hprow .lb{font-size:13px;color:#999;width:28px}
+.hprow .vl{font-size:24px;font-weight:600;min-width:50px;text-align:center}
+.hprow .mx{font-size:12px;color:#666}
+.b1{width:36px;height:36px;border-radius:8px;border:1px solid #555;background:#1a1a1a;color:#e0ddd4;font-size:20px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-family:inherit;-webkit-tap-highlight-color:rgba(255,255,255,0.1)}
+.b1:active{background:#333}
+.bsm{width:24px;height:24px;border-radius:6px;border:1px solid #444;background:#1a1a1a;color:#e0ddd4;font-size:14px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-family:inherit}
+.bt{border:none;background:#333;color:#ddd;padding:4px 10px;border-radius:6px;font-size:11px;cursor:pointer;font-family:inherit}
+.sg{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin:8px 0;text-align:center}
+.si{background:#1a1a1a;border-radius:8px;padding:6px 2px}
+.si .sl{font-size:9px;font-weight:700;color:#666}.si .sv{font-size:18px;font-weight:600}.si .sm{font-size:12px;color:#999}
+.i3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:10px 0}
+.i3 .il{font-size:10px;color:#666}.i3 .iv{font-size:15px;font-weight:600}.i3 .id{font-size:9px;color:#555}
+.skl{font-size:12px;color:#999;margin:4px 0;line-height:1.5}
+.sn{font-size:10px;color:#555;margin-bottom:8px}
+.acc{border-top:1px solid #222;margin-top:4px}
+.acc summary{padding:11px 0;font-size:14px;font-weight:500;cursor:pointer;list-style:none;display:flex;justify-content:space-between;-webkit-tap-highlight-color:transparent}
+.acc summary::after{content:'▼';font-size:10px;color:#666}
+.acc[open] summary::after{content:'▲'}
+.acc .bd{padding:0 0 10px;font-size:13px;color:#b0ada4;line-height:1.55}
+.atkr{padding:6px 0;border-bottom:1px dotted #222}
+.atkr:last-child{border:none}
+.atkr .rw{display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px;font-size:13px}
+.atkr .nt{font-size:11px;color:#666}
+.slt{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:4px 0;margin-bottom:6px}
+.slg{display:flex;align-items:center;gap:4px}
+.slg .ll{font-size:11px;color:#666}
+.dot{width:26px;height:26px;border-radius:13px;border:2px solid #555;background:none;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:10px;color:#888;font-family:inherit;-webkit-tap-highlight-color:rgba(255,255,255,0.1)}
+.dot.on{background:#555;color:#ddd}
+.spcat{font-size:10px;font-weight:700;color:#666;letter-spacing:0.5px;margin:8px 0 3px}
+.spl{font-size:12px;padding:3px 0;line-height:1.5}
+.ft{padding:7px 0;border-bottom:1px dotted #222}
+.ft:last-child{border:none}
+.ft .fn{font-size:13px;font-weight:600}
+.ft .fd{font-size:12px;color:#999;line-height:1.5;white-space:pre-line}
+.uses{display:inline-flex;align-items:center;gap:3px;margin-left:6px;vertical-align:middle}
+.uv{font-size:12px;font-weight:600}
+.cn{padding:6px 0;border-bottom:1px dotted #222}
+.cn:last-child{border:none}
+.cn .cnn{font-size:13px;font-weight:600}.cn .cnd{font-size:12px;color:#999}.cn .cna{font-size:12px;color:#5a9ed4;margin-top:2px}
+.rpq{font-size:14px;font-style:italic;color:#aaa;margin-bottom:8px}
+.rpd{font-size:13px;color:#999;margin-bottom:8px}
+.rpe{font-size:12px;color:#666}
+</style>
+</head><body>
+<div id="app" class="page">
+<h1>Elige tu personaje</h1>
+<p class="sub">Casa Rural D&D · Toca el tuyo</p>
+<p style="color:#666;text-align:center;padding:20px">Cargando personajes...</p>
+</div>
+<script>
+var SN=["FUE","DES","CON","INT","SAB","CAR"];
+var C=[
+{s:1,n:"Aldric",t:"El Caballero Caído",r:"Humano",c:"Paladín 3",su:"Juramento de Devoción",st:[16,10,14,8,12,15],hp:28,ac:18,spd:30,pr:2,acd:"Cota mallas+escudo",sv:["SAB +3","CAR +4"],sk:["Atletismo +5","Intimidación +4","Persuasión +4"],q:"Espada larga (+5, 1d8+3). Si aciertas: Castigo Divino (+2d8 radiante). Aliado herido: Imposición de Manos.",at:[{n:"Espada larga",h:"+5",d:"1d8+3",t:"CaC"},{n:"Jabalina ×5",h:"+5",d:"1d6+3",t:"30/120p"}],sp:{dc:12,ak:"+4",sl:[3],ca:[],al:["Protección vs Mal y Bien","Santuario — acc.bonus"],pr:["Curar Heridas — toca, 1d8+2","Escudo de Fe — acc.bonus, +2CA, conc","Castigo Marcante — +1d6 psíquico, asustado"]},fe:[{n:"Sentido Divino",d:"Detecta celestiales/demonios/no-muertos 60p.",u:4},{n:"Imposición de Manos",d:"Toca y cura. Reserva 15PG. 5PG curan enfermedad.",p:15},{n:"Castigo Divino",d:"Al golpear CaC: +2d8 radiante (nv1), +3d8 (nv2). Vs no-muertos +1d8."},{n:"Arma Sagrada",d:"Acción. 1min: +2 ataques. 1/desc.corto.",u:1},{n:"Defensa",d:"+1CA (incluido)."}],co:[{n:"Poción Curación",d:"2d4+2 PG.",a:"Acción."},{n:"Agua Bendita",d:"2d6 radiante no-muertos.",a:"Lanzar 20p."}],eq:"Cota mallas, escudo, espada larga, 5 jabalinas, símbolo sagrado.",qu:"Juré proteger a los inocentes. Fracasé una vez. No volverá a pasar.",rp:"Sirvió a un señor tirano. Desterrado. Busca redención."},
+{s:1,n:"Grimjaw",t:"El Cazador",r:"Humano var.",c:"Explorador 3",su:"Cazador",st:[13,16,14,10,14,8],hp:28,ac:15,spd:30,pr:2,acd:"Cuero tachonado",sv:["FUE +3","DES +5"],sk:["Supervivencia +4","Percepción +4","Sigilo +5","Investigación +2","Naturaleza +2"],q:"Arco (+7, 1d8+3). T1: Marca acc.bonus (+1d6/impacto). 2 enemigos juntos: Hordas = ataque extra.",at:[{n:"Arco largo",h:"+7",d:"1d8+3",t:"150/600p"},{n:"Espada corta ×2",h:"+5",d:"1d6+3",t:"CaC"}],sp:{dc:12,ak:"+4",sl:[3],ca:[],al:[],pr:["Marca del Cazador — acc.bonus, conc, +1d6/impacto","Curar Heridas — toca, 1d8+2","Buenas Bayas — 10 bayas: 1PG c/u"]},fe:[{n:"Alerta",d:"+5 iniciativa. No sorprendido."},{n:"Enemigo: No-muertos",d:"Ventaja rastrear, INT recordar."},{n:"Terreno: Bosque",d:"Ventaja INT/SAB. No te pierdes."},{n:"Tiro con Arco",d:"+2 distancia (incluido)."},{n:"Asesino de Hordas",d:"1/turno: ataque extra a criatura a 5p del objetivo."}],co:[{n:"Poción Curación",d:"2d4+2 PG.",a:"Acción."},{n:"Antitoxina",d:"Ventaja vs veneno 1h.",a:"Acción."},{n:"Flechas Plata ×3",d:"Superan resistencias.",a:"Ataque arco."}],eq:"Arco largo, 2 espadas cortas, cuero tachonado, 20 flechas.",qu:"He visto lo que hay en la oscuridad. La oscuridad debería tener miedo.",rp:"Perdió su pueblo por no-muertos. Cazador autodidacta. Parco."},
+{s:1,n:"Lira",t:"La Barda",r:"Mediana",c:"Barda 3",su:"Colegio del Saber",st:[8,15,12,14,13,16],hp:21,ac:14,spd:25,pr:2,acd:"Cuero tachonado",sv:["DES +4","CAR +5"],sk:["Investigación +6★","Persuasión +7★","Perspicacia +3","Engaño +5","Historia +4","Interpretación +5","Percepción +3","Sigilo +4","Arcanos +4","Religión +4","Naturaleza +4"],q:"Atrás. Burla Cruel dañar/debilitar. Inspiración acc.bonus d6 a aliado. Palabra Sanadora acc.bonus 60p. Si mal: Dormir.",at:[{n:"Rapier",h:"+4",d:"1d8+2",t:"CaC sutil"},{n:"Daga",h:"+4",d:"1d4+2",t:"20/60p"}],sp:{dc:13,ak:"+5",sl:[4,2],ca:["Burla Cruel — 60p, SAB CD13, 1d4+desventaja","Mano de Mago — invisible 30p"],al:[],pr:["Curar Heridas — toca, 1d8+3","Detectar Magia — conc, ritual","Dormir — 5d8 PG se duermen","Palabra Sanadora — ACC.BONUS 60p 1d4+3","Encanto de Personas — SAB13 amigo 1h","Luz de Hadas nv2 — conc, brillan, ventaja"]},fe:[{n:"Suerte Halfling",d:"Retira 1 natural."},{n:"Valiente",d:"Ventaja vs asustado."},{n:"Inspiración d6",d:"Acc.bonus. Aliado 60p: +d6. 10min.",u:3},{n:"Canción Descanso",d:"Desc.corto: aliados +1d6 PG."},{n:"Touche",d:"+1 pruebas sin competencia."},{n:"Cortar Palabras",d:"Reacción. Resta d6. Comparte usos Inspiración."}],co:[{n:"Poción Curación",d:"2d4+2 PG.",a:"Acción."},{n:"Pergamino Det.Pensamientos",d:"Pensamientos 30p. SAB13.",a:"Acción (consume)."}],eq:"Rapier, daga, cuero tachonado, laúd, lupa.",qu:"Cada monstruo tiene una historia. Solo hay que saber escuchar.",rp:"Ex cronista. Curiosa hasta lo peligroso."},
+{s:1,n:"Theron",t:"El Druida",r:"Elfo Bosque",c:"Druida 3",su:"Círculo de la Luna",st:[10,14,13,12,16,8],hp:21,ac:15,spd:35,pr:2,acd:"Cuero+escudo madera",sv:["INT +3","SAB +5"],sk:["Percepción +5","Naturaleza +3","Medicina +5","Supervivencia +5","Religión +3"],q:"Oso Pardo ACC.BONUS: 34PG, multiataque. A 0 vuelves con tus PG. Sin forma: Producir Llama distancia.",at:[{n:"Cimitarra",h:"+4",d:"1d6+2",t:"CaC"},{n:"Producir Llama",h:"+5",d:"1d8 fuego",t:"30p truco"}],sp:{dc:13,ak:"+5",sl:[4,2],ca:["Druidcraft — efectos naturales","Producir Llama — +5, 1d8 fuego, 30p"],al:[],pr:["Curar Heridas — toca, 1d8+3","Hablar con Animales — ritual","Ola Atronadora — 15p CON13 2d8+empuje","Detectar Magia — conc, ritual","Piel de Corteza nv2 — conc, CA16 1h","Pasar sin Rastro nv2 — conc, +10 Sigilo"]},fe:[{n:"Visión Oscuridad",d:"60p."},{n:"Forma Salvaje",d:"ACC.BONUS. CR≤1, 1h. Adoptas PG bestia. A 0 vuelves. Gasta espacio = 1d8 PG/nv.",u:2},{n:"🐻 Oso Pardo",d:"CA11 · 34PG · Garras +5 2d6+4 + Mordisco +5 1d8+4"},{n:"🐺 Lobo Dire",d:"CA14 · 37PG · Mordisco +5 2d6+3, FUE CD13 derriba"}],co:[{n:"Poción Curación",d:"2d4+2 PG.",a:"Acción."},{n:"Poción Amistad Animales",d:"Bestia SAB CD13 encantada 24h.",a:"Acción."}],eq:"Cimitarra, escudo madera, cuero, foco druídico.",qu:"La naturaleza no es amable ni cruel. Simplemente es.",rp:"Bosque arrasado. Conflicto naturaleza vs inocentes. Leal."},
+{s:2,n:"Vex",t:"El Ladrón",r:"Tiefling",c:"Pícaro 5",su:"Ladrón Arcano",ex:1,st:[10,18,12,14,11,14],hp:33,ac:16,spd:30,pr:3,acd:"Cuero tachonado",sv:["DES +7","INT +5"],sk:["Sigilo +10★","H.Ladrón +10★","Juego Manos +7","Percepción +3","Investigación +5","Engaño +5","Acrobacia +7"],q:"Escóndete acc.bonus. +7, 1d6+4+3d6 Furtivo. Esquiva Asombrosa reacción mitad. Búho Help = ventaja.",at:[{n:"Espada corta",h:"+7",d:"1d6+4+3d6",t:"Sutil"},{n:"Daga ×2",h:"+7",d:"1d4+4+3d6",t:"20/60p"},{n:"Arco corto",h:"+7",d:"1d6+4+3d6",t:"80/320p"}],sp:{dc:13,ak:"+5",sl:[3],ca:["Taumaturgia — efectos dramáticos","Mano de Mago — invisible","Ilusión Menor — imagen 30p","Prestidigitación"],al:[],pr:["Encontrar Familiar — búho, Help=ventaja","Disfrazarse — apariencia 1h","Hechizar Persona — SAB13 amigo","Color Spray — 6d10 cegadas"]},fe:[{n:"Resist. Fuego",d:"Mitad daño fuego."},{n:"Furtivo 3d6",d:"+3d6 con ventaja O aliado a 5p."},{n:"Acción Astuta",d:"Acc.bonus: Dash/Desenganche/Esconderse."},{n:"Esquiva Asombrosa",d:"Reacción: mitad daño."},{n:"Mano Mago Mejorada",d:"Invisible. Cerraduras, trampas. Acc.bonus."},{n:"Represalia Infernal",d:"Reacción al daño: 2d10 fuego.",u:1},{n:"Oscuridad",d:"Oscuridad 15p radio.",u:1}],co:[{n:"Poción Curación Mayor",d:"4d4+4 PG.",a:"Acción."},{n:"Aceite Resbaladizo",d:"Cuerpo: Libertad Mov. 8h. Suelo: Grasa 10min.",a:"Acción."}],eq:"Espada corta, 2 dagas, arco corto, cuero tachonado, herramientas ladrón, cuerda, gancho.",qu:"No robo a los pobres. Los ricos son más interesantes.",rp:"Calles. Roba solo a abusadores. Alergia a la autoridad."},
+{s:2,n:"Zara",t:"La Hechicera",r:"Semielfa",c:"Hechicera 3",su:"Magia Salvaje",st:[8,14,13,12,10,16],hp:17,ac:12,spd:30,pr:2,acd:"Sin armadura",sv:["CON +3","CAR +5"],sk:["Engaño +5","Persuasión +5","Arcanos +3","Perspicacia +2"],q:"T1: Rayo Abrasador nv2 (3×2d6, +5). Sueltos: Rayo Fuego truco 1d10. Si atacan: REACCIÓN Escudo +5CA. 17PG: LEJOS.",at:[{n:"Rayo de Fuego",h:"+5",d:"1d10 fuego",t:"120p truco"},{n:"Daga",h:"+4",d:"1d4+2",t:"20/60p"}],sp:{dc:13,ak:"+5",sl:[4,2],ca:["Rayo de Fuego — +5, 1d10, 120p","Prestidigitación","Descarga Choque — +5, 1d8, toque","Luz — antorcha 1h"],al:[],pr:["Proyectil Mágico — 3×1d4+1 auto","Escudo — REACCIÓN +5CA","Dormir — 5d8 PG","Rayo Abrasador nv2 — 3 rayos +5 2d6"]},fe:[{n:"Ventaja vs Encantamiento",d:"No dormida mágicamente."},{n:"Oleada Magia Salvaje",d:"Tras conjuro: DM pide d20. En 1: efecto aleatorio."},{n:"Marea del Caos",d:"Ventaja 1 ataque/prueba/salvación.",u:1},{n:"Puntos Hechicería",d:"Potenciado: retira dados (1PH). Sutil: sin verbal (1PH).",p:3}],co:[{n:"Poción Curación",d:"2d4+2 PG.",a:"Acción."},{n:"Pergamino Escudo",d:"Reacción +5CA.",a:"Reacción (consume)."}],eq:"Daga, foco arcano, kit disfraz.",qu:"La magia es como el fuego. No es buena ni mala. Solo quema.",rp:"Incendió tienda padre. Descarada."},
+{s:2,n:"Kael",t:"El Muro",r:"Enano Colina",c:"Guerrero 3",su:"Campeón",st:[15,12,16,8,14,10],hp:34,ac:19,spd:25,pr:2,acd:"Mallas+escudo+Defensa",sv:["FUE +4","CON +5"],sk:["Atletismo +4","Percepción +4","Supervivencia +4","Intimidación +2"],q:"Espada (+4, 1d8+2). Crit 19-20. Herido: 2°Aliento acc.bonus 1d10+3. Oleada = dos ataques.",at:[{n:"Espada larga",h:"+4",d:"1d8+2",t:"CaC"},{n:"Hacha ×2",h:"+4",d:"1d6+2",t:"20/60p"}],fe:[{n:"Resist. Enana",d:"Ventaja+resist. veneno."},{n:"Segundo Aliento",d:"Acc.bonus. 1d10+3 PG.",u:1},{n:"Oleada Acción",d:"Acción extra completa.",u:1},{n:"Crítico Mejorado",d:"Crit en 19-20."}],co:[{n:"Poción Curación",d:"2d4+2 PG.",a:"Acción."},{n:"Poción Crecimiento",d:"Agrandado: ventaja FUE, +1d4 daño.",a:"Acción."}],eq:"Cota mallas, escudo, espada larga, 2 hachas.",qu:"No necesito planes complicados. Necesito un escudo y una buena espada.",rp:"Veterano enano. Disciplinado, pragmático."},
+{s:2,n:"Seren",t:"La Guardiana",r:"Humana",c:"Clériga 3",su:"Dominio Vida",st:[13,11,15,9,16,14],hp:24,ac:18,spd:30,pr:2,acd:"Mallas+escudo",sv:["SAB +5","CAR +4"],sk:["Perspicacia +5","Medicina +5","Persuasión +4","Religión +1"],q:"T1: Bendición (3 aliados +1d4) + Arma Espiritual acc.bonus (1d8+3/turno). Curar: Palabra Sanadora acc.bonus 60p 1d4+6.",at:[{n:"Maza",h:"+3",d:"1d6+1",t:"CaC"},{n:"Llama Sagrada",h:"DES CD13",d:"1d8 radiante",t:"60p"}],sp:{dc:13,ak:"+5",sl:[4,2],ca:["Llama Sagrada — DES CD13, 1d8 radiante","Reposo Eterno — estabiliza 0PG","Guía — +1d4 prueba"],al:["Bendición — 3 criaturas +1d4","Curar Heridas — 1d8+6 (Discípulo)","Restauración Menor nv2","Arma Espiritual nv2 — ACC.BONUS 1d8+3 sin conc"],pr:["Rayo Guía — +5, 4d6+ventaja","Escudo de Fe — acc.bonus +2CA","Palabra Sanadora — ACC.BONUS 60p 1d4+6","Ayuda nv2 — 3 criaturas +5PG máx","Plegaria Curación nv2 — 6 criaturas 2d8+3","Santuario — SAB13 o elige otro"]},fe:[{n:"Discípulo Vida",d:"Curación: +2+nivel PG extra."},{n:"Canalizar Divinidad",d:"Expulsar (SAB13 huyen) O Preservar Vida (15PG repartidos).",u:1}],co:[{n:"Poción Curación",d:"2d4+2 PG.",a:"Acción."},{n:"Agua Bendita ×2",d:"2d6 radiante no-muertos.",a:"Lanzar 20p."}],eq:"Cota mallas, escudo, maza, símbolo sagrado.",qu:"No curo porque sea mi deber. Curo porque puedo.",rp:"Sacerdotisa. Compasiva pero firme."},
+{s:2,n:"Tormund",t:"La Bestia",r:"Semiorco",c:"Bárbaro 3",su:"Berserker",st:[17,14,14,8,12,10],hp:32,ac:16,spd:30,pr:2,acd:"Escamas (14+2)",sv:["FUE +5","CON +4"],sk:["Atletismo +5","Percepción +3","Supervivencia +3","Intimidación +2"],q:"IRA acc.bonus: +2 daño, mitad físico. Hacha +5, 1d12+5. Temerario = ventaja (ambos). Frenesí = extra/turno (exhausto después).",at:[{n:"Gran Hacha",h:"+5",d:"1d12+3 (1d12+5 ira)",t:"Dos manos"},{n:"Jabalina ×4",h:"+5",d:"1d6+3",t:"30/120p"}],fe:[{n:"Resist. Implacable",d:"A 0PG: caes a 1PG.",u:1},{n:"Ataques Salvajes",d:"Crit CaC: +1d12."},{n:"Ira",d:"+2 daño, resist. física, ventaja FUE. 1min.",u:3},{n:"Temerario",d:"Ventaja tu ataque. Contra ti también."},{n:"Sentido Peligro",d:"Ventaja DES saves visibles."},{n:"Frenesí",d:"En ira: ataque extra acc.bonus. Después: exhaustión. ⚠ Solo importante."}],co:[{n:"Poción Curación",d:"2d4+2 PG.",a:"Acción."},{n:"Poción Fuerza Gigante",d:"FUE 21 1h. +7 ataque, 1d12+7 ira.",a:"Acción."}],eq:"Gran hacha, 4 jabalinas, escamas.",qu:"Hablar es para los débiles. Pero luchar al lado de alguien... eso es un vínculo.",rp:"Exiliado. Fachada brutal, código de honor."},
+{s:3,n:"Bran",t:"El Guardia",r:"Humano",c:"Guerrero 2",su:"Sin subclase",st:[16,13,15,9,11,14],hp:20,ac:19,spd:30,pr:2,acd:"Mallas+escudo+Defensa",sv:["FUE +5","CON +4"],sk:["Atletismo +5","Intimidación +4","Percepción +2","Supervivencia +2"],q:"Espada (+5, 1d8+3). Herido: 2°Aliento acc.bonus 1d10+2. Oleada = 2 ataques. VS ENJAMBRES: armas MITAD. Antorchas/aceite = fuego completo.",at:[{n:"Espada larga",h:"+5",d:"1d8+3",t:"CaC"},{n:"Hacha ×2",h:"+5",d:"1d6+3",t:"20/60p"},{n:"Antorcha",h:"+5",d:"1 fuego",t:"NO reducido vs enjambres"}],fe:[{n:"Defensa",d:"+1CA (incluido)."},{n:"Segundo Aliento",d:"Acc.bonus. 1d10+2 PG.",u:1},{n:"Oleada Acción",d:"Acción extra completa.",u:1}],co:[{n:"Poción Curación",d:"2d4+2 PG.",a:"Acción."},{n:"Aceite ×2",d:"5p+fuego = 5 daño.",a:"Verter/lanzar 20p."}],eq:"Cota mallas, escudo, espada, 2 hachas, 2 antorchas, 2 aceites.",qu:"No necesito entender la magia. Necesito que los que la entienden estén detrás de mi escudo.",rp:"Guardia veterano. Pragmático, protector."},
+{s:3,n:"Elara",t:"La Sanadora",r:"Humana",c:"Clériga 2",su:"Dominio Vida",st:[13,11,15,9,16,14],hp:17,ac:18,spd:30,pr:2,acd:"Mallas+escudo",sv:["SAB +5","CAR +4"],sk:["Perspicacia +5","Religión +1","Medicina +5","Persuasión +4"],q:"Llama Sagrada 1d8. Palabra Sanadora acc.bonus 60p 1d4+6. Preservar Vida 10PG. Vs jefe tribal: Expulsar No-muertos FUNCIONA.",at:[{n:"Maza",h:"+3",d:"1d6+1",t:"CaC"},{n:"Llama Sagrada",h:"DES CD13",d:"1d8 radiante",t:"60p"}],sp:{dc:13,ak:"+5",sl:[3],ca:["Llama Sagrada — DES CD13, 1d8 radiante","Reposo Eterno — estabiliza","Guía — +1d4 prueba"],al:["Bendición — 3 criaturas +1d4","Curar Heridas — 1d8+6"],pr:["Palabra Sanadora — ACC.BONUS 60p 1d4+6","Rayo Guía — +5, 4d6+ventaja","Escudo de Fe — +2CA conc","Detectar Magia — ritual","Santuario — SAB13 o elige otro"]},fe:[{n:"Discípulo Vida",d:"+3PG extra en curación."},{n:"Canalizar Divinidad",d:"Expulsar No-muertos (SAB CD13) O Preservar Vida (10PG).",u:1}],co:[{n:"Poción Curación",d:"2d4+2 PG.",a:"Acción."},{n:"Agua Bendita ×2",d:"2d6 radiante no-muertos. NO vs ratas craneales.",a:"Lanzar 20p."}],eq:"Cota mallas, escudo, maza, símbolo sagrado.",qu:"La luz no distingue entre dignos e indignos. Yo tampoco.",rp:"Sacerdotisa. Compasiva, directa."},
+{s:3,n:"Finn",t:"El Aprendiz",r:"Alto Elfo",c:"Mago 2",su:"Evocación",st:[8,16,13,16,12,10],hp:12,ac:16,spd:30,pr:2,acd:"Armadura Mago",sv:["INT +5","SAB +3"],sk:["Arcanos +5","Historia +5","Investigación +5","Percepción +3"],q:"CLAVE VS ENJAMBRES. Manos Ardientes cono 15p 3d6 fuego COMPLETO. Esculpir: aliados sin daño. Rayo Fuego truco 1d10. Escudo REACCIÓN +5CA. 12PG: DETRÁS DE BRAN.",at:[{n:"Rayo de Fuego",h:"+5",d:"1d10 fuego",t:"120p truco"},{n:"Daga",h:"+5",d:"1d4+3",t:"20/60p"}],sp:{dc:13,ak:"+5",sl:[3],ca:["Rayo de Fuego — +5, 1d10, 120p","Prestidigitación","Luz — antorcha 1h","Mano de Mago — 30p"],al:[],pr:["Manos Ardientes — cono 15p, 3d6 fuego. CLAVE.","Ola Atronadora — 15p 2d8+empuje CON13","Armadura de Mago — CA13+DES 8h. LANZAR ANTES.","Escudo — REACCIÓN +5CA","Proyectil Mágico — 3×1d4+1 auto"]},fe:[{n:"Visión Oscuridad",d:"60p."},{n:"Recuperación Arcana",d:"1/día desc.corto: +1 espacio nv1.",u:1},{n:"Esculpir Conjuros",d:"Evocación: elige hasta 3 criaturas. Pasan auto, sin daño. Manos Ardientes sin dañar aliados."}],co:[{n:"Poción Curación",d:"2d4+2 PG.",a:"Acción."},{n:"Fuego Alquimista",d:"1d4 fuego + arde 1d4/turno. DES10 apagar.",a:"Lanzar 20p."}],eq:"Daga, varita, libro conjuros, fuego alquimista.",qu:"Las ratas normales no se comportan así. Algo las controla.",rp:"Estudiante magia. Curiosidad insaciable."},
+{s:3,n:"Miri",t:"La Sombra",r:"Mediana",c:"Pícara 2",su:"Sin subclase",st:[8,17,12,14,13,11],hp:15,ac:14,spd:25,pr:2,acd:"Cuero",sv:["DES +5","INT +4"],sk:["Sigilo +7★","Investigación +6★","Percepción +3","Acrobacia +5","Perspicacia +3","Juego Manos +5"],q:"Explora primero. Sigilo +7. Investigación +6. Combate: Esconderse acc.bonus, ataca ventaja. +5, 1d6+3+1d6 Furtivo. Vs enjambres: aceite/fuego o ayuda a Finn.",at:[{n:"Espada corta",h:"+5",d:"1d6+3+1d6",t:"Sutil"},{n:"Daga ×2",h:"+5",d:"1d4+3+1d6",t:"20/60p"},{n:"Honda",h:"+5",d:"1d4+3",t:"30/120p"}],fe:[{n:"Suerte Halfling",d:"Retira 1 natural."},{n:"Valiente",d:"Ventaja vs asustado."},{n:"Furtivo 1d6",d:"+1d6 con ventaja O aliado a 5p."},{n:"Acción Astuta",d:"Acc.bonus: Dash/Desenganche/Esconderse."}],co:[{n:"Poción Curación",d:"2d4+2 PG.",a:"Acción."},{n:"Aceite ×2",d:"Vierte+fuego = 5 daño.",a:"Verter/lanzar 20p."},{n:"Kit cerrajería",d:"Ventaja cerraduras/trampas.",a:"Acción."}],eq:"Espada corta, 2 dagas, honda, cuero, herramientas ladrón, 2 aceites, cuerda.",qu:"He sobrevivido a cosas peores que unas ratas. Bueno... quizá no a tantas.",rp:"Calles. Sobreviviente. Protege a los débiles."}
+];
+var SNAMES=[{s:1,l:"Sesión 1 — Pantanovago",d:"Nivel 3"},{s:2,l:"Sesión 2 — El Precio del Deseo",d:"Nivel 3/5"},{s:3,l:"El Rey Bajo la Colina",d:"Nivel 2"}];
+var REF=[{t:"Tu turno",c:"1. MOVERTE (hasta velocidad)\n2. UNA ACCIÓN (atacar, conjuro, esquivar, ayudar, esconderte, dash, desenganche, objeto)\n3. ACCIÓN BONUS (si clase lo permite)\n\n+ UNA REACCIÓN por ronda (fuera de turno)"},{t:"Atacar",c:"d20 + bonificador ataque\n≥ CA enemigo = impactas\nTira daño + modificador\n\nNat 20 = CRÍTICO (doble dados)\nNat 1 = FALLO"},{t:"Salvaciones",c:"DM pide (ej: DES CD14)\nd20 + modificador\n≥ CD = pasas"},{t:"Ventaja / Desventaja",c:"VENTAJA: 2d20, el más alto\nDESVENTAJA: 2d20, el más bajo\nAmbas = normal"},{t:"Conjuros",c:"TRUCOS: gratis, ilimitados\nCONJUROS: gastan espacio. Recuperas desc.largo\nCONCENTRACIÓN: solo 1. Si daño: CON CD10 o pierdes"},{t:"Caer a 0 PG",c:"Inconsciente. Cada turno d20:\n10+ = éxito · 9- = fallo\nNat20 = 1PG · Nat1 = 2 fallos\n3 éxitos = estable · 3 fallos = mueres\nCuración = despiertas"},{t:"Descansos",c:"CORTO (1h): dados de golpe\nLARGO (8h): todo PG + espacios"},{t:"Estados",c:"ASUSTADO: desventaja, no acercarte\nDERRIBADO: gatear, desventaja, CaC ventaja\nAGARRADO: vel.0, escapar Atletismo/Acrobacia\nENVENENADO: desventaja ataques+pruebas"}];
+
+var sel=null,tab=0,hpV={},slotV={},useV={},poolV={};
+var app=document.getElementById("app");
+
+function showPick(){
+sel=null;
+var h='<h1>Elige tu personaje</h1><p class="sub">Casa Rural D&D · Toca el tuyo</p>';
+for(var g=0;g<SNAMES.length;g++){
+var sn=SNAMES[g];
+h+='<div class="grp">'+sn.l+' · '+sn.d+'</div>';
+for(var i=0;i<C.length;i++){
+if(C[i].s!==sn.s)continue;
+var c=C[i];
+h+='<button class="pc" onclick="pickChar('+i+')"><div><div class="nm">'+c.n+(c.ex?'<span class="exp-badge">NIVEL 5</span>':'')+'</div><div class="meta">'+c.t+'</div><div class="rc">'+c.r+' · '+c.c+'</div></div><div class="ri">CA '+c.ac+'<br>PG '+c.hp+'</div></button>';
+}
+}
+app.innerHTML=h;
+}
+
+function pickChar(i){
+sel=i;tab=0;
+if(hpV[i]===undefined)hpV[i]=C[i].hp;
+showSheet();
+}
+
+function showSheet(){
+var c=C[sel];
+var mods=[];for(var i=0;i<6;i++)mods.push(Math.floor((c.st[i]-10)/2));
+var hp=hpV[sel];
+var hcl=hp<=c.hp*0.25?'#e55':hp<=c.hp*0.5?'#da5':'#e0ddd4';
+
+var h='<button class="back" onclick="showPick()">← Cambiar personaje</button>';
+h+='<div class="nm2">'+c.n+'</div><div class="ti2">'+c.t+'</div><div class="me2">'+c.r+' · '+c.c+' · '+c.su+'</div>';
+h+='<div class="tabbar"><button class="'+(tab===0?'on':'')+'" onclick="tab=0;showSheet()">Personaje</button><button class="'+(tab===1?'on':'')+'" onclick="tab=1;showSheet()">Referencia</button></div>';
+
+if(tab===0){
+h+='<div class="qs"><b>INICIO RÁPIDO</b>'+c.q+'</div>';
+h+='<div class="hprow"><span class="lb">PG</span><button class="b1" onclick="adjHP(-1)">−</button><span class="vl" style="color:'+hcl+'">'+hp+'</span><button class="b1" onclick="adjHP(1)">+</button><span class="mx">/ '+c.hp+'</span><button class="bt" onclick="hpV[sel]=C[sel].hp;showSheet()">MAX</button></div>';
+h+='<div class="sg">';for(var i=0;i<6;i++)h+='<div class="si"><div class="sl">'+SN[i]+'</div><div class="sv">'+c.st[i]+'</div><div class="sm">'+(mods[i]>=0?'+':'')+mods[i]+'</div></div>';h+='</div>';
+h+='<div class="i3"><div><div class="il">CA</div><div class="iv">'+c.ac+'</div><div class="id">'+c.acd+'</div></div><div><div class="il">Velocidad</div><div class="iv">'+c.spd+'p</div></div><div><div class="il">Competencia</div><div class="iv">+'+c.pr+'</div></div></div>';
+h+='<div class="skl"><b style="color:#888">Salvaciones:</b> '+c.sv.join(', ')+'</div>';
+h+='<div class="skl"><b style="color:#888">Habilidades:</b> '+c.sk.join(', ')+'</div>';
+var hasE=false;for(var j=0;j<c.sk.length;j++)if(c.sk[j].indexOf('★')!==-1)hasE=true;
+if(hasE)h+='<div class="sn">★ = Experto (doble competencia)</div>';
+
+h+='<details class="acc" open><summary>⚔️ Ataques</summary><div class="bd">';
+for(var i=0;i<c.at.length;i++){var a=c.at[i];h+='<div class="atkr"><div class="rw"><b>'+a.n+'</b><span style="color:#999">'+a.h+' | '+a.d+'</span></div>'+(a.t?'<div class="nt">'+a.t+'</div>':'')+'</div>';}
+h+='</div></details>';
+
+if(c.sp){
+h+='<details class="acc" open><summary>✨ Conjuros</summary><div class="bd">';
+h+='<div style="font-size:12px;margin-bottom:6px"><b style="color:#888">CD:</b> '+c.sp.dc+' <b style="color:#888;margin-left:10px">Ataque:</b> '+c.sp.ak+'</div>';
+h+=renderSlots(sel,c.sp.sl);
+if(c.sp.ca&&c.sp.ca.length>0){h+='<div class="spcat">TRUCOS (ilimitados)</div>';for(var i=0;i<c.sp.ca.length;i++)h+='<div class="spl">'+c.sp.ca[i]+'</div>';}
+if(c.sp.al&&c.sp.al.length>0){h+='<div class="spcat">SIEMPRE PREPARADOS</div>';for(var i=0;i<c.sp.al.length;i++)h+='<div class="spl">'+c.sp.al[i]+'</div>';}
+if(c.sp.pr&&c.sp.pr.length>0){h+='<div class="spcat">'+((c.sp.al&&c.sp.al.length>0)?'PREPARADOS':'CONOCIDOS')+'</div>';for(var i=0;i<c.sp.pr.length;i++)h+='<div class="spl">'+c.sp.pr[i]+'</div>';}
+h+='</div></details>';
+}
+
+h+='<details class="acc"><summary>🔮 Rasgos y habilidades</summary><div class="bd">';
+for(var i=0;i<c.fe.length;i++){var f=c.fe[i];h+='<div class="ft"><div style="display:flex;align-items:center;flex-wrap:wrap"><span class="fn">'+f.n+'</span>';
+if(f.u!==undefined){var k=sel+'u'+i;if(useV[k]===undefined)useV[k]=f.u;h+=renderUses(k,f.u);}
+if(f.p!==undefined){var k=sel+'p'+i;if(poolV[k]===undefined)poolV[k]=f.p;h+=renderPool(k,f.p);}
+h+='</div><div class="fd">'+f.d+'</div></div>';}
+h+='</div></details>';
+
+h+='<details class="acc" open><summary>🧪 Consumibles</summary><div class="bd">';
+for(var i=0;i<c.co.length;i++){var x=c.co[i];h+='<div class="cn"><div class="cnn">'+x.n+'</div><div class="cnd">'+x.d+'</div><div class="cna">'+x.a+'</div></div>';}
+h+='</div></details>';
+
+h+='<details class="acc"><summary>🎭 Roleplay y equipo</summary><div class="bd"><div class="rpq">"'+c.qu+'"</div><div class="rpd">'+c.rp+'</div><div class="rpe">'+c.eq+'</div></div></details>';
+
+}else{
+for(var i=0;i<REF.length;i++){var r=REF[i];h+='<details class="acc"'+(i===0?' open':'')+'><summary>'+r.t+'</summary><div class="bd" style="white-space:pre-line">'+r.c+'</div></details>';}
+}
+app.innerHTML=h;
+window.scrollTo(0,0);
+}
+
+function adjHP(d){hpV[sel]=Math.max(0,Math.min(C[sel].hp,hpV[sel]+d));showSheet();}
+
+function renderSlots(ci,sl){
+if(!slotV[ci]){slotV[ci]=[];for(var l=0;l<sl.length;l++){slotV[ci][l]=[];for(var j=0;j<sl[l];j++)slotV[ci][l].push(false);}}
+var h='<div class="slt">';
+for(var l=0;l<sl.length;l++){
+h+='<div class="slg"><span class="ll">Nv.'+(l+1)+':</span>';
+for(var j=0;j<sl[l];j++){var on=slotV[ci][l][j];h+='<button class="dot'+(on?' on':'')+'" onclick="togSlot('+ci+','+l+','+j+')">'+(on?'✕':'')+'</button>';}
+h+='</div>';}
+h+='<button class="bt" onclick="rstSlots('+ci+')">REST</button></div>';return h;
+}
+function togSlot(ci,l,j){slotV[ci][l][j]=!slotV[ci][l][j];showSheet();}
+function rstSlots(ci){var sl=C[ci].sp.sl;slotV[ci]=[];for(var l=0;l<sl.length;l++){slotV[ci][l]=[];for(var j=0;j<sl[l];j++)slotV[ci][l].push(false);}showSheet();}
+
+function renderUses(k,max){var v=useV[k];return '<span class="uses"><button class="bsm" onclick="adjUse(\''+k+'\',-1,'+max+')">−</button><span class="uv" style="color:'+(v===0?'#e55':'#e0ddd4')+'">'+v+'/'+max+'</span><button class="bsm" onclick="adjUse(\''+k+'\',1,'+max+')">+</button></span>';}
+function adjUse(k,d,max){useV[k]=Math.max(0,Math.min(max,useV[k]+d));showSheet();}
+
+function renderPool(k,max){var v=poolV[k];return '<span class="uses" style="margin-left:6px"><span style="font-size:10px;color:#666">Reserva:</span><button class="bsm" onclick="adjPool(\''+k+'\',-1,'+max+')">−</button><span class="uv" style="color:'+(v===0?'#e55':'#e0ddd4')+'">'+v+'</span><button class="bsm" onclick="adjPool(\''+k+'\',1,'+max+')">+</button></span>';}
+function adjPool(k,d,max){poolV[k]=Math.max(0,Math.min(max,poolV[k]+d));showSheet();}
+
+try{showPick();}catch(e){app.innerHTML='<div style="padding:20px;color:#e55">Error: '+e.message+'<br><br>Intenta recargar la página.</div>';}
+</script>
+</body></html>
