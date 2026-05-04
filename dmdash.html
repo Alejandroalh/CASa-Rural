@@ -1,225 +1,243 @@
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<html><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>DM Dashboard</title>
 <style>
+:root{--bg:#0f1117;--s1:#1a1d27;--s2:#222635;--ink:#e8e9ed;--ink2:#9ca0af;--ink3:#6b7084;--brd:#2d3143;--acc:#60a5fa;--acc2:#818cf8;--red:#f87171;--grn:#4ade80;--amb:#fbbf24;--sa:#c084fc;--sb:#34d399;--sc:#f472b6}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#111;color:#e0ddd4;-webkit-text-size-adjust:100%;padding-bottom:60px}
-.hdr{position:sticky;top:0;z-index:10;background:#111;border-bottom:1px solid #333;padding:8px 10px 6px}
-.sess{display:flex;gap:4px;margin-bottom:6px}
-.sess button{flex:1;padding:8px 2px;border-radius:8px;border:1px solid #444;background:none;color:#aaa;font-size:11px;cursor:pointer;text-align:center;line-height:1.3}
-.sess button.on{border:2px solid #e0ddd4;background:#1a1a1a;color:#e0ddd4;font-weight:600}
-.cats{display:flex;gap:3px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch}
-.cats button{padding:6px 10px;border-radius:16px;border:none;cursor:pointer;white-space:nowrap;font-size:12px;background:#222;color:#999}
-.cats button.on{background:#e0ddd4;color:#111}
-.content{padding:8px 10px}
-.card{border-bottom:1px solid #2a2a2a;padding:0}
-.card-h{display:flex;justify-content:space-between;align-items:center;padding:11px 0;cursor:pointer;-webkit-tap-highlight-color:transparent}
-.card-h span{font-size:14px;font-weight:500}
-.card-h .arr{font-size:10px;color:#666;transition:transform .15s}
-.card-h .arr.open{transform:rotate(180deg)}
-.card-b{padding:0 0 12px;font-size:13px;line-height:1.55;color:#b0ada4;display:none}
-.card-b.open{display:block}
-.quote{background:#1a1a1a;border-radius:6px;padding:8px 10px;margin-bottom:8px;font-style:italic;font-size:13px;color:#c8c4ba;border-left:3px solid #555}
-.tag{display:inline-block;font-size:10px;padding:2px 6px;border-radius:4px;background:#222;color:#999;margin-right:4px;margin-bottom:3px}
-.tag.r{background:#3a1515;color:#e88}
-.tag.g{background:#153a15;color:#8e8}
-.tag.b{background:#15153a;color:#88e}
-.tag.y{background:#3a3a15;color:#ee8}
-.sub{font-size:12px;color:#777;margin-top:4px}
-.hook{font-size:12px;padding:2px 0;color:#b0ada4}
-.hook::before{content:"• "}
-.warn{font-size:12px;color:#d4a44a;font-style:italic;margin-top:4px}
-.fail{font-size:12px;color:#7aaa7a;margin-top:4px}
-.nudge{font-size:12px;color:#7a9ed4;margin-top:4px}
-.mus{font-size:11px;color:#666;margin-top:4px}
-.sec-t{font-size:11px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:1px;margin:8px 0 4px;padding-top:6px;border-top:1px solid #222}
-.row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #1a1a1a;font-size:13px}
-.row .l{color:#999}.row .r{font-weight:500;color:#e0ddd4;text-align:right;max-width:60%}
-b{color:#e0ddd4}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%}
+::selection{background:var(--acc);color:var(--bg)}
+
+.app{max-width:720px;margin:0 auto;padding-bottom:80px}
+.top{position:sticky;top:0;z-index:20;background:var(--bg);padding:12px 16px 0;border-bottom:1px solid var(--brd)}
+.brand{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.brand h1{font-size:1.1rem;font-weight:700;color:var(--acc);letter-spacing:-.3px}
+.brand .sub{font-size:.72rem;color:var(--ink3)}
+.sess{display:flex;gap:5px;margin-bottom:10px}
+.sess button{flex:1;padding:10px 4px 8px;border:1px solid var(--brd);border-radius:8px;background:transparent;color:var(--ink2);font-size:.78rem;font-weight:500;cursor:pointer;text-align:center;line-height:1.3;transition:all .15s;-webkit-tap-highlight-color:transparent}
+.sess button:active{transform:scale(.97)}
+.sess button.on{background:var(--s1);border-color:var(--acc);color:var(--ink)}
+.sess button .sn{font-weight:600;display:block;font-size:.82rem}
+.sess button .sd{font-size:.65rem;color:var(--ink3);margin-top:1px}
+.sess button.on .sd{color:var(--ink2)}
+.cats{display:flex;gap:4px;overflow-x:auto;padding-bottom:10px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.cats::-webkit-scrollbar{display:none}
+.cats button{padding:6px 12px;border-radius:20px;border:1px solid var(--brd);background:transparent;color:var(--ink2);font-size:.73rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:all .15s;-webkit-tap-highlight-color:transparent}
+.cats button:active{transform:scale(.95)}
+.cats button.on{background:var(--acc);border-color:var(--acc);color:var(--bg)}
+
+.main{padding:12px 16px}
+.main-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.main-hdr h2{font-size:1.05rem;font-weight:600;color:var(--ink)}
+.main-hdr .ct{font-size:.78rem;color:var(--ink3)}
+.main-hdr .ct b{color:var(--acc)}
+
+.card{background:var(--s1);border:1px solid var(--brd);border-radius:10px;margin-bottom:8px;overflow:hidden;transition:border-color .15s;animation:fadeUp .25s ease both}
+.card:active{border-color:#4a5068}
+.card-h{padding:14px 16px;cursor:pointer;display:flex;align-items:flex-start;justify-content:space-between;gap:8px;-webkit-tap-highlight-color:transparent}
+.card-h .lf{flex:1;min-width:0}
+.card-h .tl{font-size:.88rem;font-weight:600;color:var(--ink);line-height:1.4}
+.card-h .meta{font-size:.7rem;color:var(--ink3);margin-top:2px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.card-h .arr{font-size:.65rem;color:var(--ink3);transition:transform .2s;flex-shrink:0;margin-top:4px}
+.card.open .card-h .arr{transform:rotate(180deg)}
+.card-bd{display:none;padding:0 16px 14px;font-size:.82rem;color:var(--ink2);line-height:1.65}
+.card.open .card-bd{display:block}
+
+.tag{display:inline-block;font-size:.62rem;font-weight:700;padding:2px 7px;border-radius:4px;letter-spacing:.3px;text-transform:uppercase}
+.tag-a{color:var(--sa);background:rgba(192,132,252,.1);border:1px solid rgba(192,132,252,.2)}
+.tag-b{color:var(--sb);background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.2)}
+.tag-c{color:var(--sc);background:rgba(244,114,182,.1);border:1px solid rgba(244,114,182,.2)}
+
+.qt{background:var(--s2);border-left:3px solid var(--acc);border-radius:0 6px 6px 0;padding:10px 12px;margin:8px 0;font-style:italic;font-size:.82rem;color:#c8cad4}
+.lbl{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--ink3);margin:10px 0 4px;padding-top:6px;border-top:1px solid var(--brd)}
+.hk{font-size:.78rem;padding:2px 0;color:var(--ink2)}
+.hk::before{content:"› ";color:var(--ink3)}
+.nd{font-size:.78rem;color:var(--acc);margin-top:6px}
+.fl{font-size:.78rem;color:var(--grn);margin-top:4px}
+.wr{font-size:.78rem;color:var(--amb);font-style:italic;margin-top:4px}
+.mu{font-size:.72rem;color:var(--ink3);margin-top:6px}
+.row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #1f2233;font-size:.82rem}
+.row:last-child{border:none}
+.row .rl{color:var(--ink2)}.row .rr{font-weight:600;text-align:right;max-width:55%}
+.stat-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:4px}
+.stat-pill{background:var(--s2);border-radius:6px;padding:3px 10px;font-size:.7rem;color:var(--ink3);font-weight:600}
+.stat-pill b{color:var(--acc);display:block;font-size:.85rem;margin-top:1px}
+.empty{text-align:center;padding:40px 20px;color:var(--ink3);font-size:.88rem}
+.empty .ei{font-size:2rem;margin-bottom:8px}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 </style>
-
-<div class="hdr">
-<div class="sess" id="sess"></div>
-<div class="cats" id="cats"></div>
+</head><body>
+<div class="app">
+<div class="top">
+<div class="brand"><h1>⚔️ DM Dashboard</h1><span class="sub">Casa Rural · 3 sesiones</span></div>
+<div class="sess" id="ss"></div>
+<div class="cats" id="cs"></div>
 </div>
-<div class="content" id="out"></div>
-
+<div class="main">
+<div class="main-hdr"><h2 id="mTitle">—</h2><div class="ct" id="mCount"></div></div>
+<div id="out"></div>
+</div>
+</div>
 <script>
-const SE=[
-{id:"a",name:"El Rey Bajo la Colina",sh:"Rey Colina",sub:"4 nov · Nv.2",
-pcs:[
-{n:"Bran",c:"Guerrero 2",hp:20,ac:19,key:"Tanque. 2° Aliento acc.bonus 1d10+2. Oleada = 2 ataques. Vs enjambres: antorchas/aceite.",w:"Armas hacen mitad vs enjambres. Señálalo."},
-{n:"Elara",c:"Clériga 2 Vida",hp:17,ac:18,key:"Llama Sagrada 1d8 radiante (completo vs enjambres). Palabra Sanadora acc.bonus 60p 1d4+6. Preservar Vida 10PG. Expulsar vs jefe.",w:"Si no usa Bendición T1, recuérdaselo."},
-{n:"Finn",c:"Mago 2 Evocación",hp:12,ac:16,key:"MVP vs enjambres. Manos Ardientes 3d6 fuego completo. Esculpir = aliados sin daño. Escudo reacción +5CA. 12PG.",w:"Solo 3 espacios. Recup.Arcana desc.corto +1. Detrás de Bran."},
-{n:"Miri",c:"Pícara 2",hp:15,ac:14,key:"Sigilo +7, Investigación +6. Acc.Astuta Esconderse. Furtivo 1d6. Clave ataque sorpresa rey rata.",w:"No hace daño vs enjambres. Dale exploración."},
-],scenes:[
-{t:"🗺️ A1 · Llegada · 10min",m:"Lluvia+tenso",o:"Luces en la posada pero no hay ruido. Ni risas ni música.",s:"Llegan bajo lluvia. Posada iluminada pero silenciosa.",d:["Percepción 12: sin movimiento, olor podredumbre","Percepción 15: cientos de huellas hacia la posada"],h:["Miri: huellas van dentro, ninguna sale","Finn: algo eléctrico en el aire"],nu:"Grito desde el segundo piso.",fa:""},
-{t:"🗺️🗣️⚔️ A2 · Planta baja · 30min",m:"Tenso→Hunt or Be Hunted",o:"Sala común: sillas volcadas. Cocina: marea de ratas devorando todo.",s:"Exploran planta baja. Cocina: 1 enjambre. Establo: caballos muertos. Letrina: Jond escondido.",d:["Percepción 12: roer desde cocina","Investigación 10: huellas grandes→escaleras","Jond da info sobre control"],h:["Finn: Manos Ardientes = clave","Bran: lámparas aceite como armas","Miri: calma a Jond (ventaja Persuasión)","Elara: curar a Jond = confianza"],nu:"Sollozo desde letrina. 'Es como golpear agua.'",fa:"Enjambre no persigue. A 0PG ignora inconscientes."},
-{t:"🗣️⚔️ A3 · Rey Rata · 25min",m:"Inquietante bajo",o:"8 ratas cráneo abultado, colas entrelazadas. Voz telepática: '¿QUIÉNES SOIS?'",s:"6 prisioneros rodillas. Rey rata interroga. Si 1 rata muere = todas huyen.",d:["Engaño 12: negociar liberación","Miri Sigilo +7: sorpresa","Finn Arcanos 14: psiónica, azotamentes","Toblen liberado: 100po + 2 pociones"],h:["Miri: sigilo clave para sorpresa","Finn: azotamentes, momento conocimiento","Bran: 6 civiles que proteger"],nu:"Toblen señala ventana con los ojos.",fa:"Prisionero a 0PG (no muere), estabilizable."},
-{t:"⚔️🗺️ A4 · Bodega · 20min",m:"Hunt or Be Hunted",o:"Dos masas de ratas cavan en suelo. Pozo de un metro.",s:"2 enjambres. Espacio reducido. Barril cerveza + fuego = auto-kill 1.",d:["Creatividad con fuego: premiar","Barril volcado+encendido = elimina 1 enjambre"],h:["Finn: Manos Ardientes/Esculpir","Bran: aceite+antorcha","Elara: Llama Sagrada radiante completo"],nu:"Toblen: 'La bodega... ahí empezó todo.'",fa:"Enjambres cavan hasta tumba. Toblen despierta con poción. 1d6PG."},
-{t:"⚔️🗣️🗺️ A5 · Tumba y Jefe · 20min",m:"Silencio→tenso",o:"Losa grabada. Esqueleto con espada brillante. 3 SÍMBOLOS: pantano 3 cabañas, torre rota, espejo con grieta.",s:"Hojabrillante. Losa CONEXIÓN. Al coger espada: jefe despierta. Extiende mano. 1 turno antes de atacar.",d:["Historia 14: espada Iliyanbruen","Religión 12: enterramiento honroso","Historia 15/Arcanos 14: símbolos = advertencia","Expulsar SAB CD13","Ritos Religión 12","Persuasión 14: hablarle con respeto"],h:["Bran: espada perfecta en su mano","Elara: Expulsar = su momento","Finn: ritos funerarios","Miri: depositar espada con delicadeza"],nu:"No ataca 1 turno. Mano extendida.",fa:"Recupera espada, se tumba. 1d6PG. Otra estrategia o irse sin ella."},
-{t:"🗣️ A6 · Resolución · 10min",m:"Taberna cálido",o:"Toblen: '¡Una tumba bajo mi posada!' Símbolos = misterio.",s:"100po + 2 pociones + Hojabrillante. Finn copia símbolos. XP:250.",d:[],h:[],nu:"",fa:""},
-],enemies:[
-{n:"Enjambre de Ratas",ac:10,hp:24,atk:"+2, 2d6 (1d6 bajo mitad)",sp:"RESISTE cortante/perforante/contundente. Fuego=completo. Ocupa mismo espacio.",tc:"Sobre el más cercano. Armas=mitad."},
-{n:"Rata Craneal (×8)",ac:12,hp:2,atk:"+4, 1 perforante",sp:"Telepatía 30p. Rey rata: 1 muere=todas huyen.",tc:"No luchan solas. Convocan enjambres."},
-{n:"Jefe Tribal",ac:13,hp:30,atk:"+4, 1d8+2 necrótico",sp:"VULNERABLE contundente. Grito rec.5-6: cono15p 2d6necr CON12 asustado. Grapple +4 hacia espada. Expulsar SAB13.",tc:"Va a por la espada. 1 turno tensión."},
-],npcs:[
-{n:"Toblen",d:"Posadero, afable",l:"¡Mi posada! ¡Habéis salvado mi posada!",sec:"No sabe de la tumba. 100po+2 pociones."},
-{n:"Jond Botonzuelo",d:"Mediano, letrina",l:"¡Se comportaban como si algo las controlara!",sec:"Vio todo. Solo quiere salir."},
-],music:[{s:"Llegada",t:"Lluvia+tenso"},{s:"Posada",t:"Tenso bajo"},{s:"Combate",t:"Hunt or Be Hunted"},{s:"Rey Rata",t:"Inquietante bajo"},{s:"Tumba",t:"Silencio→tenso"},{s:"Final",t:"Taberna cálido"}],
-items:[{n:"Hojabrillante",e:"Espada +1. Cristales brillantes. Encuentra ciudades élficas.",a:"Arma."},{n:"Frasco aceite",e:"5 pies+fuego=5 daño fuego.",a:"Acción: verter/lanzar 20p."},{n:"Fuego Alquimista",e:"1d4 fuego+arde 1d4/turno. DES10 apagar.",a:"Acción: lanzar 20p."},{n:"Antorcha",e:"1 fuego. NO reducido por resist. enjambres.",a:"Ataque normal."}],
+var sid="a",cat="tr";
+var CATS=[{id:"tr",l:"📖 Trama"},{id:"sc",l:"📜 Escenas"},{id:"en",l:"⚔️ Combate"},{id:"np",l:"👤 NPCs"},{id:"pc",l:"🛡️ Grupo"},{id:"it",l:"🧪 Objetos"},{id:"mu",l:"🎵 Musica"}];
+var SE=[
+{id:"a",nm:"El Rey Bajo la Colina",sh:"Rey Colina",sub:"4 novatos · Nv.2",cl:"a",
 story:[
-{t:"Resumen de la trama",c:"La Posada de Colina de Piedra ha sido invadida por enjambres de ratas controladas por ratas craneales, criaturas creadas por azotamentes (mindflayers). Las ratas buscan una tumba antigua bajo la posada que contiene a un jefe tribal con una espada magica elfica. Los aventureros llegan buscando refugio de una tormenta y se encuentran la posada en silencio, los huespedes retenidos y las ratas excavando.<br><br>La aventura es una progresion vertical: planta baja (descubrimiento), planta alta (confrontacion social con el rey rata), bodega (combate + excavacion), y tumba (boss final con multiples soluciones)."},
-{t:"Lo que esta pasando realmente",c:"Los azotamentes del subsuelo han enviado a las ratas craneales como avanzadilla. No buscan la espada, buscan la tumba porque contiene informacion antigua (la losa con los tres simbolos). Los azotamentes estan cartografiando amenazas de la superficie.<br><br>Esto NO se revela a los jugadores. Es contexto para ti como DM: explica por que las ratas son organizadas, por que el rey rata interroga a los prisioneros y por que la operacion tiene un proposito militar, no caotico.<br><br>Si Finn pasa Arcanos CD14, descubre la conexion con los azotamentes. Queda como misterio abierto."},
-{t:"Motivaciones de los personajes clave",c:"<b>TOBLEN:</b> Solo quiere su posada y su vida de vuelta. Genuinamente afable. No tiene secretos.<br><br><b>JOND:</b> Supervivencia pura. Aterrorizado. Pero su testimonio es clave: vio que las ratas eran controladas. Transforma la aventura de plaga a operacion de inteligencia.<br><br><b>EL REY RATA:</b> No es malvado en sentido clasico. Es una herramienta de los azotamentes. Son arrogantes por su inteligencia colectiva. Pero fragiles: matar a una rompe al conjunto.<br><br><b>EL JEFE TRIBAL:</b> No es un villano. Es un guardian que duerme hace siglos. Solo despierta si le roban su espada. Puede ser razonado."},
-{t:"Como se conectan las escenas",c:"<b>ESCENA 1 (Llegada)</b> establece el misterio: algo esta mal pero no sabes que.<br><br><b>ESCENA 2 (Planta baja)</b> descubren la amenaza (ratas), aprenden la mecanica clave (fuego > armas) y encuentran a Jond que da el giro: estan controladas.<br><br><b>ESCENA 3 (Rey Rata)</b> la amenaza tiene voz y proposito. Rehenes crean tension. Solucion violenta o social.<br><br><b>ESCENA 4 (Bodega)</b> las ratas excavaban. Combate mas duro (2 enjambres) pero ya saben usar fuego.<br><br><b>ESCENA 5 (Tumba)</b> descubren QUE buscaban. La losa con simbolos es el misterio. La espada es la recompensa. El jefe tribal tiene soluciones no-combativas.<br><br><b>ESCENA 6 (Resolucion)</b> cierra y deja preguntas abiertas."},
-{t:"El dilema central",c:"No hay un gran dilema moral en esta sesion como en las otras dos. Es mas directa: salvar rehenes, limpiar posada, descubrir tumba. El dilema menor es el jefe tribal: coger la espada arriesgando combate, o devolverla perdiendo el premio.<br><br>Esto es intencional: esta sesion es para novatos absolutos. Los dilemas morales complejos estan en las sesiones B y C."},
-{t:"Conexion con las otras sesiones",c:"LA LOSA CON LOS TRES SIMBOLOS es el nexo. El jefe tribal conocia tres amenazas y las registro hace siglos:<br><br>1. PANTANO CON 3 CABANAS = Las Hermanas del Pantano (Sesion B).<br>2. TORRE ROTA = Tor Vyrenn (Sesion C). La torre del Djinn.<br>3. ESPEJO CON GRIETA = El Maestro Espejo. La amenaza que conecta todo.<br><br>Los jugadores de esta mesa NO saben que significan. Solo lo descubren cuando hablen con las otras mesas despues.<br><br>Tu unico trabajo: describir los simbolos. No expliques nada."},
-{t:"Posibles finales",c:"<b>COMPLETO:</b> Limpian posada, liberan rehenes, resuelven jefe, consiguen Hojabrillante. 100po + 2 pociones + espada +1.<br><br><b>PARCIAL:</b> Limpian pero ratas craneales escapan. Toblen nervioso. Gancho futuro.<br><br><b>SIN ESPADA:</b> Devuelven Hojabrillante por respeto. Pierden recompensa, ganan resolucion pacifica.<br><br><b>DIFICIL:</b> Pierden contra jefe. Se van con 100po de Toblen sin el tesoro.<br><br>Ningun final bloquea la aventura. Todos son validos."}
-]},
+{t:"📖 Resumen",c:"La Posada de Colina de Piedra ha sido invadida por ratas controladas por ratas craneales (criaturas de azotamentes). Buscan una tumba antigua bajo la posada con una espada magica elfica.<br><br>Progresion vertical: planta baja (descubrimiento), planta alta (rey rata, social), bodega (combate), tumba (boss con multiples soluciones)."},
+{t:"🧠 La verdad oculta",c:"Los azotamentes enviaron ratas craneales como avanzadilla. No buscan la espada: buscan la losa con los tres simbolos para cartografiar amenazas de la superficie.<br><br>Esto NO se revela. Si Finn pasa Arcanos CD14: descubre conexion con azotamentes. Queda como misterio abierto."},
+{t:"🎭 Motivaciones NPCs",c:"<b>TOBLEN:</b> Solo quiere su posada. Afable, sin secretos.<br><br><b>JOND:</b> Supervivencia pura. Su testimonio transforma la aventura: las ratas son controladas.<br><br><b>REY RATA:</b> Herramienta de azotamentes. Arrogante. 1 muere = todas huyen.<br><br><b>JEFE TRIBAL:</b> Guardian dormido. Puede ser razonado."},
+{t:"🔗 Flujo narrativo",c:"<b>E1 Llegada:</b> Algo esta mal.<br><b>E2 Planta baja:</b> Ratas + fuego mayor que armas + Jond (controladas).<br><b>E3 Rey Rata:</b> Amenaza con voz. Rehenes. Social o violento.<br><b>E4 Bodega:</b> 2 enjambres. Barril+fuego = auto-kill.<br><b>E5 Tumba:</b> Losa CONEXION. Espada. Jefe tribal.<br><b>E6 Cierre:</b> Preguntas abiertas."},
+{t:"⚖️ Dilema",c:"No hay gran dilema moral (novatos). Dilema menor: coger espada (riesgo) o devolverla (respeto). Dilemas complejos en B y C."},
+{t:"🔗 Conexion 3 sesiones",c:"La losa tiene 3 simbolos:<br>1. Pantano 3 cabanas = Hermanas (Sesion B)<br>2. Torre rota = Tor Vyrenn (Sesion C)<br>3. Espejo con grieta = Maestro Espejo<br><br>Jugadores NO saben que significan. Solo describes. No expliques."},
+{t:"🎯 Finales posibles",c:"<b>Completo:</b> Todo resuelto. 100po + Hojabrillante.<br><b>Parcial:</b> Ratas escapan. Gancho futuro.<br><b>Sin espada:</b> Devuelven por respeto.<br><b>Dificil:</b> Pierden vs jefe. 100po sin tesoro."}
+],
+pcs:[{n:"Bran",c:"Guerrero 2",hp:20,ac:19,k:"Tanque. 2Aliento 1d10+2. Oleada=2 ataques. Vs enjambres: antorchas/aceite.",w:"Armas mitad vs enjambres."},{n:"Elara",c:"Cleriga 2 Vida",hp:17,ac:18,k:"Llama Sagrada radiante completo. Palabra Sanadora 60p 1d4+6. Preservar 10PG. Expulsar vs jefe.",w:"Bendicion T1."},{n:"Finn",c:"Mago 2 Evocacion",hp:12,ac:16,k:"MVP enjambres. Manos Ardientes 3d6. Esculpir=1+nv conjuro aliados. Escudo reaccion.",w:"12PG y 3 espacios. Detras de Bran."},{n:"Miri",c:"Picara 2",hp:15,ac:14,k:"Sigilo +7. Investigacion +6. Furtivo 1d6. Clave sorpresa rey rata.",w:"No dana enjambres. Dar roles exploracion."}],
+scenes:[
+{t:"E1 · Llegada",time:"10min",p:"🗺️",m:"Lluvia+tenso",o:"Luces en la posada pero no hay ruido. Ni risas ni musica.",s:"Llegan bajo lluvia. Posada iluminada pero silenciosa.",d:["Percepcion 12: sin movimiento, olor podredumbre","Percepcion 15: cientos de huellas hacia la posada"],h:["Miri: huellas van dentro, ninguna sale","Finn: algo electrico en el aire"],nu:"Grito desde el segundo piso.",fa:""},
+{t:"E2 · Planta baja",time:"30min",p:"🗺️🗣️⚔️",m:"Tenso / Hunt or Be Hunted",o:"Sala comun: sillas volcadas. Cocina: marea de ratas devorando todo.",s:"Cocina: 1 enjambre. Establo: caballos muertos. Letrina: Jond escondido.",d:["Percepcion 12: roer cocina","Investigacion 10: huellas escaleras","Jond: ratas controladas"],h:["Finn: Manos Ardientes clave","Bran: lamparas aceite","Miri: calma a Jond","Elara: curar Jond = confianza"],nu:"Sollozo letrina. Como golpear agua.",fa:"Enjambre no persigue. A 0PG ignora inconscientes."},
+{t:"E3 · Rey Rata",time:"25min",p:"🗣️⚔️",m:"Inquietante bajo",o:"8 ratas craneo, colas entrelazadas. Voz: QUIENES SOIS?",s:"6 prisioneros. Rey rata interroga. 1 muere = todas huyen.",d:["Engano 12: negociar","Miri Sigilo +7: sorpresa","Finn Arcanos 14: azotamentes","Toblen: 100po + 2 pociones"],h:["Miri: sigilo clave","Finn: azotamentes","Bran: 6 civiles"],nu:"Toblen senala ventana.",fa:"Prisionero 0PG (no muere). Estabilizable."},
+{t:"E4 · Bodega",time:"20min",p:"⚔️🗺️",m:"Hunt or Be Hunted",o:"Dos masas de ratas cavan. Pozo de un metro.",s:"2 enjambres. Barril+fuego = auto-kill 1.",d:["Creatividad fuego: premiar","Barril volcado = elimina 1"],h:["Finn: Manos Ardientes","Bran: aceite+antorcha","Elara: Llama Sagrada completo"],nu:"Toblen: La bodega, ahi empezo todo.",fa:"Enjambres cavan hasta tumba. Toblen despierta con pocion."},
+{t:"E5 · Tumba y Jefe",time:"20min",p:"⚔️🗣️🗺️",m:"Silencio / tenso",o:"Losa grabada. Esqueleto con espada. 3 SIMBOLOS: pantano, torre, espejo.",s:"Hojabrillante. Losa CONEXION. Jefe despierta al coger espada. Mano extendida 1 turno.",d:["Historia 14: espada Iliyanbruen","Religion 12: enterramiento","Historia 15/Arcanos 14: simbolos","Expulsar SAB CD13","Ritos Religion 12","Persuasion 14: respeto"],h:["Bran: espada perfecta","Elara: Expulsar = su momento","Finn: ritos funerarios","Miri: depositar espada"],nu:"No ataca 1 turno. Mano extendida.",fa:"Recupera espada, se tumba."},
+{t:"E6 · Resolucion",time:"10min",p:"🗣️",m:"Taberna calido",o:"Toblen: Una tumba bajo mi posada! Simbolos = misterio.",s:"100po + 2 pociones + Hojabrillante. XP:250.",d:[],h:[],nu:"",fa:""}],
+enemies:[{n:"Enjambre de Ratas",ac:10,hp:24,at:"+2, 2d6 (1d6 bajo mitad)",sp:"RESISTE cortante/perforante/contundente. Fuego=completo. Ocupa mismo espacio.",tc:"Sobre el mas cercano. Armas=mitad."},{n:"Rata Craneal x8",ac:12,hp:2,at:"+4, 1 perforante",sp:"Telepatia 30p. Rey rata: 1 muere=todas huyen.",tc:"Convocan enjambres. Amenaza rehenes."},{n:"Jefe Tribal",ac:13,hp:30,at:"+4, 1d8+2 necrotico",sp:"VULNERABLE contundente. Grito rec5-6: cono15p 2d6necr CON12 asustado. Grapple +4 espada. Expulsar SAB13.",tc:"Va a por la espada. 1 turno tension."}],
+npcs:[{n:"Toblen",d:"Posadero, afable",l:"Mi posada! Habeis salvado mi posada!",sc:"No sabe de tumba. 100po+2 pociones."},{n:"Jond Botonzuelo",d:"Mediano, letrina",l:"Se comportaban como si algo las controlara!",sc:"Vio todo. Solo quiere salir."}],
+music:[{s:"Llegada",t:"Lluvia + tenso"},{s:"Posada",t:"Tenso bajo"},{s:"Combate",t:"Hunt or Be Hunted"},{s:"Rey Rata",t:"Inquietante bajo"},{s:"Tumba",t:"Silencio / tenso"},{s:"Final",t:"Taberna calido"}],
+items:[{n:"Hojabrillante",e:"Espada +1. Cristales. Ciudades elficas.",a:"Arma."},{n:"Frasco aceite",e:"5 pies+fuego=5 dano.",a:"Verter/lanzar 20p."},{n:"Fuego Alquimista",e:"1d4 fuego+arde 1d4/turno.",a:"Lanzar 20p."},{n:"Antorcha",e:"1 fuego. NO reducido vs enjambres.",a:"Ataque normal."}]},
 
-{id:"b",name:"La Maldición de Pantanovago",sh:"Pantanovago",sub:"4 nov · Nv.3",
-pcs:[
-{n:"Aldric",c:"Paladín 3 Devoción",hp:28,ac:19,key:"Espada +5 1d8+3 + Castigo Divino (GASTA ESPACIO CONJURO: +2d8 radiante). Imposición Manos 15PG reserva. Arma Sagrada +2 ataque.",w:"Recuérdale que Castigo GASTA un espacio de conjuro. Agua Bendita vs zombis."},
-{n:"Grimjaw",c:"Explorador 3 Cazador",hp:28,ac:15,key:"Arco +7 1d8+3. Marca +1d6/impacto. Hordas: ataque extra adyacente. Predilecto no-muertos.",w:"Marca = concentración. Terreno Bosque = ventaja."},
-{n:"Lira",c:"Barda 3 Saber",hp:21,ac:14,key:"Inspiración d6 ×3. Cortar Palabras reacción. Palabra Sanadora acc.bonus 60p. Dormir. Luz Hadas.",w:"Puede olvidar Inspiración. Cortar Palabras gasta usos."},
-{n:"Theron",c:"Druida 3 Luna",hp:21,ac:15,key:"Oso Pardo acc.bonus: CA11 34PG multi. A 0 vuelve con PG. Ola Atronadora. Pasar sin Rastro +10.",w:"Forma Salvaje es acc.bonus. Puede gastar espacio para curarse como oso."},
-],scenes:[
-{t:"🗣️ B1 · Taberna · 30min",m:"Merchants of Novigrad",o:"Aldea gris. Taberna. Hombre corpulento con nudillos ensangrentados bebe solo.",s:"Barón Vorek 100po. Yoren: huyó. Agatha: camino pantano. Drago: Leshen.",d:["Perspicacia 10: Barón miente","Persuasión 12: Yoren susurra","Persuasión 14: Agatha da camino","🔗 Agatha (si preguntan historia): 'Un rey del sur talló su imagen en piedra'"],h:["Aldric: Barón = su antiguo señor","Lira: Agatha se fija en ella","Grimjaw: Drago describe no-muertos","Theron: cuervo en hombro"],nu:"25min: Agatha se acerca. 30min: aullido corta.",fa:"Agatha les sigue fuera y da info directamente."},
-{t:"🗺️ B2 · Bosque · 15min",m:"Ladies of the Woods bajo",o:"Bosque cerrado. Rostros en corteza. Silueta con cuernos de ciervo.",s:"Leshen=ambientación. Roble, huellas, altar. Luces azules guían.",d:["Naturaleza 12: garras en roble","Supervivencia 11: huellas (Grimjaw ventaja)","Religión 12/Naturaleza 14: altar"],h:["Grimjaw: Terreno activo","Theron: dos fuerzas en guerra","Aldric: Sentido Divino detecta no-muertos"],nu:"Luces azules si se pierden.",fa:""},
-{t:"⚔️ B3 · Ahogados · 20min",m:"Hunt or Be Hunted",o:"Manos pálidas brotan del agua. Cuerpos hinchados se incorporan.",s:"5 zombis (6 si holgados). Grapple + arrastre agua.",d:["Grapple +1 vs Atletismo/Acrobacia","Tenacidad: CON CD5+daño (no radiante/crit)"],h:["Aldric: Agua Bendita 2d6 radiante, anula Tenacidad","Grimjaw: Marca+arco+Hordas","Theron: ¿Oso? 34PG extra","Lira: Burla+Inspiración atrás"],nu:"Ronda 3-4: último se hunde.",fa:"Leshen los arrastra al islote. Pierden pociones. 1d6PG."},
-{t:"🗣️ B4 · Hermanas · 40min",m:"Ladies of the Woods alto",o:"Tres cabañas. Caldero. Tres figuras que no estaban ahí.",s:"Mila+Keira protegidas. Precio: niños mueren. Keira futura hag. Trato: corazón Vorek.",d:["Perspicacia 13: lo de los niños","Persuasión 18: otro precio","Engaño 16: corazón falso","A:matar Barón B:recuerdos C:engañar D:verdad a Mila"],h:["Theron: '¿Otra vez un bosque muerto?'","Aldric: 'Sin respuesta buena, caballero'","Lira: Susurrante sobre su mentor","Grimjaw: 'El cazador que perdió a todos'"],nu:"30min: Keira abraza a Mila. Velas se apagan.",fa:"Mila escapa sola madrugada. Herida. Sin protección."},
-{t:"🗣️🗺️ B5 · Resolución · 10min",m:"The Wolven Storm / Silencio",o:"Epílogo según decisión. Maestro Espejo en el camino.",s:"Consecuencias. Percepción 13: alguien les siguió. M.Espejo teaser: 'Recordad mi nombre.'",d:["Perspicacia 12: Mila aterrorizada si la devuelven"],h:["Maestro Espejo: clavo y canela. Desaparece."],nu:"",fa:""},
-],enemies:[
-{n:"Zombie (×5-6)",ac:8,hp:22,atk:"+3, 1d6+1",sp:"Tenacidad: CON CD5+daño (no radiant/crit). Grapple +1 arrastra agua.",tc:"Lentos. Van al más cercano. Agarran."},
-{n:"Green Hag (si combate)",ac:17,hp:60,atk:"+6, 2d8+4",sp:"Mirada Horrible rec.5-6: SAB13 asustado. Invisibilidad. Mimetismo.",tc:"1 lucha, 2 huyen. Imita voz Keira."},
-],npcs:[
-{n:"Barón Vorek",d:"Borracho violento, destrozado",l:"100po por mi esposa y mi hija.",sec:"Golpeaba a Mila. Muñeco de trapo bolsillo."},
-{n:"Yoren",d:"Tabernero, nervioso",l:"Ella no desapareció. Huyó.",sec:"Persuasión 12."},
-{n:"Vieja Agatha",d:"80 años, cuervo, herbolaria",l:"Las Hermanas siempre cobran.",sec:"Persuasión 14. Conexión: rey del sur talló imagen."},
-{n:"Tejedora",d:"Mayor, hila, acertijos",l:"Visitantes. Hace tiempo...",sec:"Conoce pasado PJs."},
-{n:"Cocinera",d:"Mediana, caldero, dulzura",l:"¿Queréis probar el guiso?",sec:"Precio: niños aldea."},
-],music:[{s:"Taberna",t:"Merchants of Novigrad"},{s:"Bosque",t:"Ladies of the Woods bajo"},{s:"Combate",t:"Hunt or Be Hunted"},{s:"Hermanas",t:"Ladies of the Woods alto"},{s:"Resolución",t:"The Wolven Storm"},{s:"M.Espejo",t:"Silencio total"}],
-items:[{n:"Agua Bendita",e:"2d6 radiante vs no-muertos. Anula Tenacidad.",a:"Acción: lanzar 20p."},{n:"Antitoxina",e:"Ventaja vs veneno 1h.",a:"Acción: beber."},{n:"Flechas Plata ×3",e:"Superan resistencias licántropos/no-muertos.",a:"Ataque arco."},{n:"Poción Amistad Animales",e:"Bestia SAB CD13 o encantada 24h.",a:"Acción: beber."},{n:"Pergamino Detectar Pensamientos",e:"Pensamientos 30p. SAB13 sondear.",a:"Acción: leer (consume)."}]},
-
-{id:"c",name:"El Precio del Deseo",sh:"Deseo",sub:"4nov+1exp · Nv.3/5",
-pcs:[
-{n:"Vex ★",c:"Pícaro 5 Ladrón Arcano",hp:33,ac:16,key:"Furtivo 3d6. Esquiva Asombrosa mitad. Mano Mago invisible. Búho Help=ventaja. Represalia Infernal 3d10 fuego.",w:"Experimentado. Que guíe no dirija. Mano Mago resuelve trampas."},
-{n:"Zara",c:"Hechicera 3 Salvaje",hp:17,ac:12,key:"Rayo Abrasador 3×2d6. Escudo reacción +5CA. Proyectil Mágico auto. Metamagia. 17PG.",w:"La más frágil. Detrás. Puede olvidar Escudo como reacción."},
-{n:"Kael",c:"Guerrero 3 Campeón",hp:34,ac:19,key:"Tanque. Crit 19-20. 2°Aliento 1d10+3. Oleada Acción. Resist.Enana veneno.",w:"El más simple. Delante. Recuérdale Oleada."},
-{n:"Seren",c:"Clériga 3 Vida",hp:24,ac:18,key:"Bendición T1 +1d4. Arma Espiritual acc.bonus 1d8+3 sin conc. Palabra Sanadora acc.bonus 1d4+6. Preservar 15PG.",w:"Bendición + Arma Espiritual primeros 2 turnos."},
-{n:"Tormund",c:"Bárbaro 3 Berserker",hp:32,ac:16,key:"Ira +2daño resist.física. Temerario=ventaja(ambos). Hacha 1d12+5ira. Implacable 1/largo. Crit 3d12+5.",w:"Frenesí=exhausto después. Solo peleas importantes. Poción Gigante FUE21."},
-],scenes:[
-{t:"🗣️ C1 · Lady Irina · 10min",m:"Merchants of Novigrad",o:"Mansión descuidada. Mujer con medio rostro de cristal.",s:"Trato M.Espejo: curó marido, precio: hija. Se negó. Maldición. Djinn en Tor Vyrenn. 500po.",d:[],h:["Seren: madre+hija, su fe","Vex: autoridad abusiva","Tormund: precio injusto"],nu:"",fa:""},
-{t:"🗣️🗺️ C2 · Investigación · 25min",m:"Novigrad",o:"Valdris. Universidad + Puerto.",s:"Mortimer: Djinn, Tor Vyrenn, 'palabras importan'. Asha: mapa, 'no podéis luchar contra él'.",d:["Arcanos 13/Historia 15: info Djinn","Persuasión 13/50po: Asha mapa","Percepción 14 camino: diario 'runas queman'"],h:["Zara: Mortimer reconoce magia salvaje","Kael: Asha reconoce veterano enano"],nu:"Cuervo ojo cristal lleva mapa.",fa:"Cuervo con mapa si fallan todo."},
-{t:"🗺️ C3 · Vestíbulo Espejos · 15min",m:"Gaunter O'Dimm bajo",o:"Espejos rotos. Reflejos con retraso. No siempre hacen lo mismo.",s:"Puzzle: reflejos miran espejo correcto. Romperlo=escalera. Equivocado=1 Sombra.",d:["Percepción 14: reflejos señalan norte","Investigación 12: espejo menos roto"],h:["Vex: Mano Mago tantea sin tocar","Kael: Conocimiento Piedra, enano antiguo"],nu:"10min: espejo cae solo.",fa:"Sombra deja 1PG frente al espejo correcto roto."},
-{t:"⚔️ C4 · Biblioteca · 25min",m:"Hunt or Be Hunted",o:"Estanterías. 30cm agua. Atril libro brillante.",s:"Libro: instrucciones Djinn (handout). Water Weird + 2 Esqueletos al acercarse.",d:["WW grapple escape CD13","Atletismo 13: sacar compañero","Frío=congela WW 1 turno"],h:["Tormund: Poción Gigante FUE21","Vex: Aceite Resbaladizo","Kael: Oleada Acción","Seren: Arma Espiritual+Llama Sagrada mismo turno"],nu:"Ronda 5: estantería cae sobre WW 2d6.",fa:"WW no mata. Despiertan orilla. Libro a pies. Pasarela Acrobacia 12."},
-{t:"🗺️ C5 · Cámara Sello · 10min",m:"Gaunter O'Dimm medio",o:"Runas brillantes. Lámpara bronce vibra. 🔗 3 SÍMBOLOS antiguos en paredes.",s:"Trampa 3d6 fuerza DES14. Desactivar Arcanos15. Vex: Mano Mago empuja lámpara Juego Manos14.",d:["Investigación 14: runas=trampa","Arcanos 12: sello activo","Arcanos 15: desactivar","Vex Juego Manos 14: sin daño","🔗 Arcanos/Investigación 13: símbolos anteriores a torre"],h:["Tormund: Sentido Peligro ventaja DES","Vex: Mano Mago resolver sin daño"],nu:"Diario: 'runas queman'. Lámpara se sacude.",fa:"Lámpara se rompe sola."},
-{t:"🗣️ C6 · El Djinn · 30min",m:"Steel for Humans 15s→The Wolven Storm",o:"Tornado. Ser 3 metros: '¿QUIÉN ME LIBERA... Y QUIÉN DESEA?'",s:"1 deseo. Literal. Formulación importa.",d:["'Maldición desaparezca'→síntoma, vuelve mañana","'Trato anulado'→funciona, marido muere","'No pueda dañarla'→más allá de mi poder","'Libre para siempre'→MEJOR, marido muere","Deseo egoísta→Irina muere cristal"],h:["Zara: 'poder sin control'","Seren: dilema moral","Kael: pragmático corta debate"],nu:"20min: se desvanece. 'AHORA.' Repite ambigüedades.",fa:"Irina muere. 200po+Capa. M.Espejo aparece igual."},
-{t:"🗣️ C7 · Maestro Espejo · 10min",m:"Gaunter O'Dimm",o:"Sol se apaga. Hombre en roca. Ojos de espejo.",s:"Invulnerable. Comenta decisión. Regalo a cada jugador. Aceptar/rechazar individual.",d:[],h:["Vex: 'Nadie verá tus cuernos'","Tormund: 'Devolverte tu clan'","Seren: 'Nadie morirá mientras estés cerca'"],nu:"",fa:""},
-],enemies:[
-{n:"Sombra",ac:12,hp:16,atk:"+4, 2d6+2 necr + FUE-1d4",sp:"VULNERABLE radiante. Resist.armas no mágicas. Invisible penumbra.",tc:"Sale del espejo equivocado."},
-{n:"Water Weird",ac:13,hp:45,atk:"+5, 3d6+grapple CD13+ahoga",sp:"VULNERABLE frío (congela 1 turno). Resist.fuego con agua. Invisible sumergido. 1 víctima.",tc:"Emerge, agarra, ahoga. Esqueletos protegen."},
-{n:"Esqueleto (×2)",ac:13,hp:13,atk:"+4, 1d6+2",sp:"Vulnerable contundente. Inmune veneno.",tc:"Protegen WW."},
-],npcs:[
-{n:"Lady Irina",d:"Noble, cristal",l:"Sois mi última esperanza.",sec:"No sabe que romper trato mata marido."},
-{n:"Mortimer",d:"Erudito viejo",l:"Cada ambigüedad será explotada.",sec:"Sabe de Tor Vyrenn."},
-{n:"Asha",d:"Tiefling, contrabandista",l:"No podéis luchar contra él.",sec:"Palidece al oír Maestro Espejo."},
-{n:"Maestro Espejo",d:"Invulnerable",l:"Ahora tenéis mi atención.",sec:"No puede ser dañado. Regalos sin precio aparente."},
-],music:[{s:"Ciudad/Irina",t:"Merchants of Novigrad"},{s:"Viaje",t:"Fields of Ard Skellig"},{s:"Espejos/Sello",t:"Gaunter O'Dimm"},{s:"Combate",t:"Hunt or Be Hunted"},{s:"Djinn aparece",t:"Steel for Humans 15s"},{s:"Negociación",t:"The Wolven Storm"},{s:"M.Espejo",t:"Gaunter O'Dimm"},{s:"Final",t:"Silencio→Fields"}],
-items:[{n:"Poción Curación Mayor (Vex)",e:"4d4+4 PG.",a:"Acción."},{n:"Aceite Resbaladizo (Vex)",e:"Cuerpo: Libertad Movimiento 8h. Suelo: Grasa 10min.",a:"Acción."},{n:"Pergamino Escudo (Zara)",e:"Reacción +5CA.",a:"Reacción (consume)."},{n:"Poción Crecimiento (Kael)",e:"Agrandado 1d4h: ventaja FUE, +1d4 daño.",a:"Acción."},{n:"Agua Bendita ×2 (Seren)",e:"2d6 radiante vs no-muertos.",a:"Acción: lanzar 20p."},{n:"Poción Fuerza Gigante (Tormund)",e:"FUE21 1h. Ataques +7, 1d12+7 ira.",a:"Acción."}],
+{id:"b",nm:"Pantanovago",sh:"Pantanovago",sub:"4 novatos · Nv.3",cl:"b",
 story:[
-{t:"📖 Resumen de la trama",c:"Lady Irina Korvath se convierte en cristal por una maldición del Maestro Espejo — un ser antiguo e invulnerable que le impuso un precio imposible por curar a su marido. La única solución es un Djinn atrapado en las ruinas de Tor Vyrenn. Los aventureros deben encontrarlo, liberarlo y formular un deseo con las palabras exactas para romper la maldición... sabiendo que cada ambigüedad será explotada."},
-{t:"🧠 Lo que está pasando realmente",c:"Hace un año, el marido de Irina estaba muriendo. Desesperada, hizo un trato con el Maestro Espejo: él curó al marido. El precio: \"lo que más amara\" al cabo de un año. Irina pensó que sería una joya o un recuerdo. Cuando el Maestro Espejo volvió, señaló a su hija recién nacida.\n\nIrina se negó. La maldición de cristalización empezó al día siguiente.\n\nLO QUE IRINA NO SABE: Si el trato se rompe, todo lo que el trato otorgó se deshace. Su marido volverá a enfermar y morirá. Los jugadores descubrirán esto al hablar con el Djinn. Irina no está presente para decidir — los jugadores deciden por ella.\n\nEL MAESTRO ESPEJO no es un demonio, ni un dios, ni un mortal. Es algo más antiguo que cualquier categoría. No puede ser matado, engañado ni forzado. No es malvado: es transaccional. Cumple tratos al pie de la letra. La maldición no es castigo — es la cláusula de incumplimiento."},
-{t:"🎭 Motivaciones de los personajes clave",c:"LADY IRINA: Culpa. No solo tiene miedo de morir: se odia por haber hecho el trato. Sabía que era peligroso pero lo hizo igualmente. Esa culpa la hace vulnerable y auténtica.\n\nEL MAESTRO ESPEJO: No quiere nada de los jugadores. Los observa por curiosidad. Su oferta de regalos al final es genuina: sin trampa inmediata. Pero ahora los conoce. Y eso es más peligroso que cualquier maldición.\n\nEL DJINN: Furia milenaria. Lleva siglos encerrado. Concederá el deseo porque debe, pero no ayudará. Es un espejo (temáticamente igual que el Maestro Espejo): refleja las palabras con precisión de cuchilla. Si formulas mal, es tu problema.\n\nMORTIMER: Entusiasmo académico puro. No tiene agenda. Simplemente ama el conocimiento.\n\nASHA: Miedo real. Ha oído hablar del Maestro Espejo. Su miedo es la mejor señal de lo peligroso que es."},
-{t:"🔗 Cómo se conectan las escenas",c:"ESCENA 1 (Irina) establece la urgencia emocional. Una mujer convirtiéndose en cristal. El reloj corre. No hay tiempo para debatir si aceptar el trabajo.\n→ Los jugadores deberían sentir: \"tenemos que ayudarla.\"\n\nESCENA 2 (Investigación) es el pilar de exploración social. Dos fuentes de info con personalidades distintas: Mortimer (entusiasta, da info técnica) y Asha (asustada, da info práctica). Entre ambos, los jugadores saben: dónde ir, qué buscar, y que las palabras importan.\n→ La frase de Mortimer (\"cada ambigüedad será explotada\") es el setup del acto 3.\n\nESCENA 3 (Vestíbulo) es el primer contacto con Tor Vyrenn. El puzzle de los espejos introduce el tema de los reflejos (que conecta con el Maestro Espejo temáticamente). La Sombra es una amenaza menor pero establece que la torre es peligrosa.\n\nESCENA 4 (Biblioteca) es el combate principal. El Water Weird es táctico (ahogamiento, invisibilidad, debilidad al frío). Los esqueletos añaden presión. El libro del atril es la recompensa: las instrucciones del Djinn.\n\nESCENA 5 (Cámara del Sello) es la transición. La trampa de runas es el último obstáculo. Los símbolos de CONEXIÓN están aquí.\n\nESCENA 6 (Djinn) es el corazón. Todo el trabajo previo converge en una escena de roleplay puro: formular el deseo correctamente. Las consecuencias son permanentes.\n\nESCENA 7 (Maestro Espejo) es el epílogo. No hay acción: solo conversación. El tono es inquietante, no amenazante. Los regalos son la tentación final."},
-{t:"⚖️ El dilema central",c:"La formulación del deseo ES el dilema. No hay combate final, no hay boss. El reto es lingüístico y moral:\n\n• \"Que la maldición desaparezca\" = solo elimina el síntoma. Vuelve mañana.\n• \"Que el trato sea anulado\" = funciona, pero el marido muere (el trato lo salvó).\n• \"Que sea libre para siempre\" = la mejor opción, pero el marido muere igualmente.\n• Deseo egoísta = Irina muere.\n\nEl dilema real no es formular bien: es decidir si están dispuestos a matar al marido de Irina para salvarla. Y ella no está presente para dar su consentimiento.\n\nEstá diseñado para que NO haya opción limpia. La opción \"menos mala\" (libre para siempre) sigue teniendo un coste humano. Muy Witcher.\n\nDespués viene la segunda capa: los regalos del Maestro Espejo. Cada oferta apunta al deseo más profundo de cada PJ. Aceptar no tiene consecuencia inmediata — pero el jugador sabe, instintivamente, que nada es gratis."},
-{t:"🔗 Conexión con las otras sesiones",c:"EN LA CÁMARA DEL SELLO: Los mismos tres símbolos de la losa de la tumba (Sesión A) aparecen tallados en las paredes, más antiguos que la propia torre. \"Alguien los talló como cimiento, como si la torre se construyera SOBRE esta advertencia.\"\n\nEL MAESTRO ESPEJO: Aparece como teaser en Sesión B y como antagonista aquí. Los jugadores de la Sesión B solo vieron a un hombre misterioso. Estos lo enfrentan directamente y descubren que es invulnerable.\n\nLA CONEXIÓN POST-SESIONES: Cuando las tres mesas hablen entre sí:\n- Mesa A: \"Encontramos una losa con tres símbolos: un pantano con cabañas, una torre rota, un espejo.\"\n- Mesa B: \"¡En nuestro pantano había exactamente tres cabañas con un caldero! Y Agatha dijo que un rey los talló en piedra.\"\n- Mesa C: \"¡Nosotros encontramos los mismos símbolos en la torre! Y el espejo... es el Maestro Espejo.\"\n\nEl momento de descubrimiento ocurre sin que tú hagas nada. Solo necesitas haber descrito los símbolos."},
-{t:"🎯 Posibles finales",c:"FINAL AGRIDULCE (el mejor): Formulan \"libre para siempre\". Maldición rota. Marido muere esa noche. Irina llora pero está viva. Los jugadores cargan con la decisión. 500po + Capa de Protección.\n\nFINAL PARCIAL: Formulan \"que desaparezca la maldición\". Cristal se revierte. Irina feliz... hasta mañana. Los jugadores descubren después que no funcionó. Gancho para futuro.\n\nFINAL TRÁGICO: Deseo egoísta. Irina muere como cristal. Los sirvientes les dan 200po. El peso emocional es real y duradero.\n\nFINAL HONORABLE: Formulan \"trato anulado\" sabiendo que el marido muere. Irina tiene que elegir en vivo: \"Si anulo el trato... ¿mi marido morirá?\" Si los jugadores le dan la opción, es un final tremendamente poderoso.\n\nEn todos los finales: el Maestro Espejo aparece. Los regalos se ofrecen. La historia queda abierta."}
-]},
+{t:"📖 Resumen",c:"Aventureros investigan desaparicion de Mila y Keira. Descubren que Mila HUYO del Baron maltratador. Busco refugio con las Hermanas del Pantano: tres brujas que protegen a cambio de alimentarse de ninos.<br><br>Cada opcion tiene coste humano. No hay solucion buena."},
+{t:"🧠 La verdad oculta",c:"Mila sufria maltrato. Agatha le hablo de las Hermanas. Huyo con Keira.<br><br>Las Hermanas alimentan el bosque con fuerza vital de ninos (3 muertos). Mila NO lo sabe. Keira sera convertida en hag.<br><br>El Baron esta destrozado Y es maltratador. Las dos cosas son ciertas. No hay buenos ni villanos puros."},
+{t:"🎭 Motivaciones NPCs",c:"<b>BARON:</b> Ama retorcidamente. Muneco de trapo real. Golpeaba a Mila.<br><br><b>MILA:</b> Proteger a Keira. No sabe el precio.<br><br><b>HERMANAS:</b> Predadoras ancestrales. Funcion ecologica: mantienen bosque.<br><br><b>AGATHA:</b> Culpa. Penitencia.<br><br><b>LESHEN:</b> Fuerza natural. Si Hermanas mueren, bosque muere."},
+{t:"🔗 Flujo narrativo",c:"<b>E1 Taberna:</b> Semillas: Baron, Yoren, Agatha, Drago.<br><b>E2 Bosque:</b> Leshen = algo superior. Huellas. Altar.<br><b>E3 Ahogados:</b> Unico combate. Zombis = gente que intento cruzar.<br><b>E4 Hermanas:</b> CORAZON. Capas: Mila a salvo, ninos, Keira.<br><b>E5 Cierre:</b> Consecuencias. Maestro Espejo teaser."},
+{t:"⚖️ Dilema",c:"No hay solucion buena:<br>- Matar Baron: libre pero ninos mueren<br>- Precio personal: todos libres, jugador marcado<br>- Engano: temporal, represalias<br>- Verdad a Mila: libre sin proteccion<br><br>Como DM: no juzgues. Narra consecuencias."},
+{t:"🔗 Conexion 3 sesiones",c:"<b>AGATHA</b> (si preguntan historia): Un rey del sur tallo imagen de las Hermanas en piedra.<br><br>Conecta con losa Sesion A y grabados Sesion C.<br><b>MAESTRO ESPEJO</b> aparece al final como teaser."},
+{t:"🎯 Finales posibles",c:"<b>A:</b> Matan Baron. Mila libre. Ninos siguen.<br><b>B:</b> Recuerdos. Todos libres. PJ marcado.<br><b>C:</b> Engano. Represalias.<br><b>D:</b> Verdad. Mila se va sin proteccion.<br><b>Fallido:</b> Mila escapa sola herida."}],
+pcs:[{n:"Aldric",c:"Paladin 3",hp:28,ac:19,k:"Espada +5 + Castigo GASTA ESPACIO +2d8. Imposicion Manos 15PG. Arma Sagrada +2.",w:"Castigo GASTA espacio conjuro."},{n:"Grimjaw",c:"Explorador 3",hp:28,ac:15,k:"Arco +7. Marca +1d6 CONCENTRACION. Hordas: extra adyacente.",w:"Marca = concentracion."},{n:"Lira",c:"Barda 3",hp:21,ac:14,k:"Inspiracion d6 x3. Cortar Palabras (GASTA Inspiracion). Palabra Sanadora bonus 60p.",w:"Cortar gasta usos Inspiracion."},{n:"Theron",c:"Druida 3 Luna",hp:21,ac:15,k:"Oso Pardo bonus: 34PG multi. NO conjuros como animal. A 0 vuelve.",w:"Forma Salvaje es bonus."}],
+scenes:[
+{t:"E1 · Taberna",time:"30min",p:"🗣️",m:"Merchants of Novigrad",o:"Aldea gris. Taberna. Hombre con nudillos ensangrentados.",s:"Baron 100po. Yoren: huyo. Agatha: camino. Drago: Leshen.",d:["Perspicacia 10: Baron miente","Persuasion 12: Yoren susurra","Persuasion 14: Agatha da camino","CONEXION Agatha: rey del sur tallo imagen"],h:["Aldric: Baron = su antiguo senor","Lira: Agatha se fija","Grimjaw: no-muertos","Theron: cuervo en hombro"],nu:"25min Agatha se acerca. 30min aullido.",fa:"Agatha les sigue fuera con info."},
+{t:"E2 · Bosque",time:"15min",p:"🗺️",m:"Ladies of the Woods bajo",o:"Bosque cerrado. Rostros corteza. Silueta cuernos ciervo.",s:"Leshen=ambiente. Roble, huellas, altar. Luces azules.",d:["Naturaleza 12: garras roble","Supervivencia 11: huellas (Grimjaw ventaja)","Religion 12/Naturaleza 14: altar"],h:["Grimjaw: Terreno activo","Theron: dos fuerzas","Aldric: Sentido Divino"],nu:"Luces azules si se pierden.",fa:""},
+{t:"E3 · Ahogados",time:"20min",p:"⚔️",m:"Hunt or Be Hunted",o:"Manos palidas del agua. Cuerpos hinchados.",s:"5 zombis (6 si holgados). Grapple + arrastre agua.",d:["Grapple +1 vs Atletismo","Tenacidad: CON CD5+dano (no radiante/crit)"],h:["Aldric: Agua Bendita 2d6","Grimjaw: Marca+arco+Hordas","Theron: Oso 34PG","Lira: Burla+Inspiracion"],nu:"Ronda 3-4: ultimo se hunde.",fa:"Leshen arrastra al islote. 1d6PG."},
+{t:"E4 · Hermanas",time:"40min",p:"🗣️",m:"Ladies of the Woods alto",o:"Tres cabanas. Caldero. Tres figuras.",s:"Mila+Keira protegidas. Precio: ninos. Keira hag. Trato: corazon Vorek.",d:["Perspicacia 13: ninos","Persuasion 18: otro precio","Engano 16: corazon falso"],h:["Theron: otro bosque muerto?","Aldric: sin respuesta buena","Lira: Susurrante sobre mentor","Grimjaw: cazador que perdio a todos"],nu:"30min Keira abraza Mila. Velas apagan.",fa:"Mila escapa sola madrugada. Herida."},
+{t:"E5 · Resolucion",time:"10min",p:"🗣️🗺️",m:"The Wolven Storm / Silencio",o:"Epilogo segun decision. Maestro Espejo en el camino.",s:"Consecuencias. M.Espejo: Recordad mi nombre.",d:["Perspicacia 12: Mila aterrorizada si devuelven"],h:["Maestro Espejo: clavo y canela"],nu:"",fa:""}],
+enemies:[{n:"Zombie x5-6",ac:8,hp:22,at:"+3, 1d6+1",sp:"Tenacidad CON CD5+dano (no radiante/crit). Grapple +1.",tc:"Lentos. Mas cercano. Agarran."},{n:"Green Hag (si combate)",ac:17,hp:60,at:"+6, 2d8+4",sp:"Mirada Horrible rec5-6: SAB13. Invisibilidad. Mimetismo.",tc:"1 lucha 2 huyen. Imita voz Keira."}],
+npcs:[{n:"Baron Vorek",d:"Borracho violento, destrozado",l:"100po por mi esposa y mi hija.",sc:"Golpeaba a Mila. Muneco trapo. Perspicacia 10 miente."},{n:"Yoren",d:"Tabernero nervioso",l:"Ella no desaparecio. Huyo.",sc:"Persuasion 12."},{n:"Vieja Agatha",d:"80 anos, cuervo, herbolaria",l:"Las Hermanas siempre cobran.",sc:"Persuasion 14. Conexion: rey del sur."},{n:"Hermanas del Pantano",d:"Tejedora/Cocinera/Susurrante",l:"La mujer y la nina vinieron suplicando...",sc:"Precio: ninos aldea. Perspicacia 13."}],
+music:[{s:"Taberna",t:"Merchants of Novigrad"},{s:"Bosque",t:"Ladies of the Woods bajo"},{s:"Combate",t:"Hunt or Be Hunted"},{s:"Hermanas",t:"Ladies of the Woods alto"},{s:"Resolucion",t:"The Wolven Storm"},{s:"M.Espejo",t:"Silencio total"}],
+items:[{n:"Agua Bendita",e:"2d6 radiante no-muertos. Anula Tenacidad.",a:"Lanzar 20p."},{n:"Antitoxina",e:"Ventaja vs veneno 1h.",a:"Beber."},{n:"Flechas Plata x3",e:"Superan resistencias.",a:"Ataque arco."},{n:"Pocion Amistad Animales",e:"Bestia SAB13 encantada 24h.",a:"Beber."},{n:"Pergamino Det.Pensamientos",e:"Pensamientos 30p. SAB13.",a:"Leer (consume)."}]},
+
+{id:"c",nm:"El Precio del Deseo",sh:"Deseo",sub:"4nov+1exp · Nv.3/5",cl:"c",
+story:[
+{t:"📖 Resumen",c:"Lady Irina se convierte en cristal por maldicion del Maestro Espejo. Solucion: Djinn en Tor Vyrenn. Formular deseo con palabras exactas. Cada ambiguedad sera explotada."},
+{t:"🧠 La verdad oculta",c:"Irina hizo trato: Maestro Espejo curo a su marido. Precio: su hija. Se nego. Maldicion.<br><br><b>Lo que Irina no sabe:</b> romper el trato mata al marido.<br><br><b>Maestro Espejo:</b> transaccional. La maldicion es clausula de incumplimiento."},
+{t:"🎭 Motivaciones NPCs",c:"<b>IRINA:</b> Culpa por el trato. Autentica.<br><br><b>MAESTRO ESPEJO:</b> Observa por curiosidad. Regalos genuinos. Pero ahora los conoce.<br><br><b>DJINN:</b> Furia milenaria. Refleja palabras como cuchilla.<br><br><b>MORTIMER:</b> Entusiasmo puro.<br><br><b>ASHA:</b> Miedo real."},
+{t:"🔗 Flujo narrativo",c:"<b>E1 Irina:</b> Urgencia. Cristal.<br><b>E2 Investigacion:</b> Mortimer + Asha.<br><b>E3 Vestibulo:</b> Puzzle espejos.<br><b>E4 Biblioteca:</b> Water Weird.<br><b>E5 Camara:</b> Trampa. Simbolos CONEXION.<br><b>E6 Djinn:</b> CORAZON. Deseo.<br><b>E7 M.Espejo:</b> Regalos."},
+{t:"⚖️ Dilema",c:"La formulacion ES el dilema:<br>- Maldicion desaparezca = sintoma<br>- Trato anulado = marido muere<br>- Libre para siempre = mejor, marido muere<br>- Egoista = Irina muere<br><br>Dilema real: matar al marido para salvarla. Ella no consiente."},
+{t:"🔗 Conexion 3 sesiones",c:"<b>Camara del Sello:</b> 3 simbolos de la losa (Sesion A) en las paredes, mas antiguos que la torre.<br><br><b>Post-sesiones:</b> Las 3 mesas descubren la conexion al hablar."},
+{t:"🎯 Finales posibles",c:"<b>Agridulce:</b> Libre para siempre. Marido muere. 500po + Capa.<br><b>Parcial:</b> Maldicion desaparezca. Vuelve manana.<br><b>Tragico:</b> Egoista. Irina cristal. 200po.<br><b>Honorable:</b> Si Irina decide en vivo: muy poderoso."}],
+pcs:[{n:"Vex EXP",c:"Picaro 5",hp:33,ac:16,k:"Furtivo 3d6. Esquiva mitad. Mano Mago invisible. Buho Help. Represalia 3d10.",w:"Experimentado. Que guie no dirija."},{n:"Zara",c:"Hechicera 3",hp:17,ac:12,k:"Rayo Abrasador 3x2d6. Escudo reaccion +5CA. 17PG.",w:"Mas fragil. Detras."},{n:"Kael",c:"Guerrero 3",hp:34,ac:19,k:"Tanque. Crit 19-20. 2Aliento. Oleada.",w:"Simple. Delante."},{n:"Seren",c:"Cleriga 3",hp:24,ac:18,k:"Bendicion+Arma Espiritual T1-2. Palabra Sanadora 1d4+6.",w:"Bendicion+A.Espiritual."},{n:"Tormund",c:"Barbaro 3",hp:32,ac:16,k:"Ira +2 resist. Temerario ventaja. Hacha 1d12+5. Crit 3d12+5.",w:"Frenesi=exhausto."}],
+scenes:[
+{t:"E1 · Lady Irina",time:"10min",p:"🗣️",m:"Merchants of Novigrad",o:"Mansion descuidada. Mujer medio rostro cristal.",s:"Trato M.Espejo. Djinn Tor Vyrenn. 500po.",d:[],h:["Seren: madre+hija","Vex: autoridad abusiva","Tormund: precio injusto"],nu:"",fa:""},
+{t:"E2 · Investigacion",time:"25min",p:"🗣️🗺️",m:"Novigrad",o:"Valdris. Universidad + Puerto.",s:"Mortimer: Djinn, palabras importan. Asha: mapa.",d:["Arcanos 13/Historia 15","Persuasion 13/50po: mapa","Percepcion 14: diario runas queman"],h:["Zara: magia reconocida","Kael: veterano reconocido"],nu:"Cuervo ojo cristal lleva mapa.",fa:"Cuervo con mapa."},
+{t:"E3 · Vestibulo Espejos",time:"15min",p:"🗺️",m:"Gaunter O Dimm bajo",o:"Espejos rotos. Reflejos con retraso.",s:"Puzzle: reflejos senalan espejo correcto. Sombra si equivocado.",d:["Percepcion 14: reflejos norte","Investigacion 12: menos roto"],h:["Vex: Mano Mago sin tocar","Kael: Conocimiento Piedra"],nu:"10min espejo cae solo.",fa:"Sombra deja 1PG."},
+{t:"E4 · Biblioteca",time:"25min",p:"⚔️",m:"Hunt or Be Hunted",o:"Estanterias. 30cm agua. Atril brillante.",s:"Water Weird + 2 Esqueletos.",d:["WW grapple CD13","Atletismo 13: sacar","Frio = congela 1 turno"],h:["Tormund: Pocion Gigante","Vex: Aceite Resbaladizo","Kael: Oleada","Seren: A.Espiritual+Llama"],nu:"Ronda 5: estanteria cae.",fa:"WW no mata. Despiertan orilla."},
+{t:"E5 · Camara Sello",time:"10min",p:"🗺️",m:"Gaunter O Dimm",o:"Runas. Lampara bronce. 3 SIMBOLOS antiguos.",s:"Trampa 3d6 fuerza DES14. Desactivar Arcanos15.",d:["Investigacion 14: trampa","Arcanos 12: sello","Arcanos 15: desactivar","Arcanos 13: simbolos CONEXION"],h:["Tormund: Sentido Peligro","Vex: Mano Mago"],nu:"Diario runas queman.",fa:"Lampara se rompe sola."},
+{t:"E6 · El Djinn",time:"30min",p:"🗣️",m:"Steel for Humans / Wolven Storm",o:"Tornado. Ser 3 metros: QUIEN ME LIBERA?",s:"1 deseo. Literal. Formulacion importa.",d:["Desaparezca: sintoma","Anulado: marido muere","No danarla: mas alla","Libre siempre: MEJOR","Egoista: Irina muere"],h:["Zara: poder sin control","Seren: dilema moral","Kael: pragmatico corta"],nu:"20min se desvanece. AHORA.",fa:"Irina muere. 200po+Capa."},
+{t:"E7 · Maestro Espejo",time:"10min",p:"🗣️",m:"Gaunter O Dimm",o:"Sol se apaga. Hombre roca. Ojos espejo.",s:"Invulnerable. Regalo individual.",d:[],h:["Vex: nadie vera tus cuernos","Tormund: devolverte tu clan","Seren: nadie morira"],nu:"",fa:""}],
+enemies:[{n:"Sombra",ac:12,hp:16,at:"+4, 2d6+2 necr + FUE-1d4",sp:"VULNERABLE radiante. Resist armas no magicas. Invisible penumbra.",tc:"Sale del espejo equivocado."},{n:"Water Weird",ac:13,hp:45,at:"+5, 3d6+grapple CD13+ahoga",sp:"VULNERABLE frio (congela 1 turno). Resist fuego. Invisible sumergido.",tc:"Emerge, agarra, ahoga."},{n:"Esqueleto x2",ac:13,hp:13,at:"+4, 1d6+2",sp:"Vulnerable contundente.",tc:"Protegen WW."}],
+npcs:[{n:"Lady Irina",d:"Noble, cristal",l:"Sois mi ultima esperanza.",sc:"No sabe que romper trato mata marido."},{n:"Mortimer",d:"Erudito viejo",l:"Cada ambiguedad sera explotada.",sc:"Sabe de Tor Vyrenn."},{n:"Asha",d:"Tiefling, contrabandista",l:"No podeis luchar contra el.",sc:"Palidece con Maestro Espejo."},{n:"Maestro Espejo",d:"Invulnerable",l:"Ahora teneis mi atencion.",sc:"No puede ser danado. Regalos sin precio."}],
+music:[{s:"Ciudad/Irina",t:"Merchants of Novigrad"},{s:"Viaje",t:"Fields of Ard Skellig"},{s:"Espejos/Sello",t:"Gaunter O Dimm"},{s:"Combate",t:"Hunt or Be Hunted"},{s:"Djinn aparece",t:"Steel for Humans 15s"},{s:"Negociacion",t:"The Wolven Storm"},{s:"M.Espejo",t:"Gaunter O Dimm"},{s:"Final",t:"Silencio / Fields"}],
+items:[{n:"Pocion Curacion Mayor (Vex)",e:"4d4+4 PG.",a:"Accion."},{n:"Aceite Resbaladizo (Vex)",e:"Cuerpo: Libertad Mov 8h. Suelo: Grasa 10min.",a:"Accion."},{n:"Pergamino Escudo (Zara)",e:"Reaccion +5CA.",a:"Reaccion (consume)."},{n:"Pocion Crecimiento (Kael)",e:"Ventaja FUE +1d4 dano.",a:"Accion."},{n:"Agua Bendita x2 (Seren)",e:"2d6 radiante.",a:"Lanzar 20p."},{n:"Pocion Fuerza Gigante (Tormund)",e:"FUE21 1h. +7 ataque.",a:"Accion."}]}
 ];
 
-const CATS=[
-{id:"sc",l:"📜 Escenas"},{id:"en",l:"⚔️ Combate"},{id:"np",l:"👤 NPCs"},{id:"pc",l:"🛡️ Grupo"},{id:"it",l:"🧪 Objetos"},{id:"mu",l:"🎵 Música"}
-];
+function $(id){return document.getElementById(id)}
+function Q(s){return document.querySelector(s)}
 
-let sid="a",cat="sc";
-
-function $(s){return document.querySelector(s)}
-function $$(s){return document.querySelectorAll(s)}
-
-function render(){
-const s=SE.find(x=>x.id===sid);
-let h="";
-
-if(cat==="sc") s.scenes.forEach((sc,i)=>{
-h+=`<div class="card"><div class="card-h" onclick="tog(this)"><span>${sc.t}</span><span class="arr">▼</span></div><div class="card-b">`;
-h+=`<div class="quote">"${sc.o}"</div>`;
-h+=`<div style="margin-bottom:6px">${sc.s}</div>`;
-if(sc.d.length) sc.d.forEach(d=>h+=`<div class="hook">${d}</div>`);
-if(sc.h.length){h+=`<div class="sec-t">🪝 Ganchos</div>`;sc.h.forEach(x=>h+=`<div class="hook">${x}</div>`);}
-if(sc.nu) h+=`<div class="nudge">💡 <b>Si atascan:</b> ${sc.nu}</div>`;
-if(sc.fa) h+=`<div class="fail">🔄 <b>Fail Forward:</b> ${sc.fa}</div>`;
-h+=`<div class="mus">🎵 ${sc.m}</div>`;
-h+=`</div></div>`;
-});
-
-else if(cat==="en") s.enemies.forEach(e=>{
-h+=`<div class="card"><div class="card-h" onclick="tog(this)"><span>${e.n}</span><span class="arr">▼</span></div><div class="card-b">`;
-h+=`<div style="margin-bottom:6px"><span class="tag">CA ${e.ac}</span><span class="tag">PG ${e.hp}</span></div>`;
-h+=`<div style="margin-bottom:4px"><b>Ataque:</b> ${e.atk}</div>`;
-h+=`<div style="margin-bottom:4px"><b>Especial:</b> ${e.sp}</div>`;
-h+=`<div class="warn"><b>Tácticas:</b> ${e.tc}</div>`;
-h+=`</div></div>`;
-});
-
-else if(cat==="np") s.npcs.forEach(n=>{
-h+=`<div class="card"><div class="card-h" onclick="tog(this)"><span>${n.n} — <span style="color:#888;font-weight:400">${n.d}</span></span><span class="arr">▼</span></div><div class="card-b">`;
-h+=`<div class="quote">"${n.l}"</div>`;
-h+=`<div style="font-size:12px;color:#7a9ed4">🔒 ${n.sec}</div>`;
-h+=`</div></div>`;
-});
-
-else if(cat==="pc") s.pcs.forEach(p=>{
-h+=`<div class="card"><div class="card-h" onclick="tog(this)"><span>${p.n} · <span style="color:#888;font-weight:400">${p.c}</span></span><span class="arr">▼</span></div><div class="card-b">`;
-h+=`<div style="margin-bottom:6px"><span class="tag b">PG ${p.hp}</span><span class="tag b">CA ${p.ac}</span></div>`;
-h+=`<div style="margin-bottom:6px">${p.key}</div>`;
-h+=`<div class="warn">⚠ ${p.w}</div>`;
-h+=`</div></div>`;
-});
-
-else if(cat==="it") s.items.forEach(it=>{
-h+=`<div class="card"><div class="card-h" onclick="tog(this)"><span>${it.n}</span><span class="arr">▼</span></div><div class="card-b">`;
-h+=`<div style="margin-bottom:4px">${it.e}</div>`;
-h+=`<div style="font-size:12px;color:#7a9ed4">${it.a}</div>`;
-h+=`</div></div>`;
-});
-
-else if(cat==="mu") s.music.forEach(m=>{
-h+=`<div class="row"><span class="l">${m.s}</span><span class="r">${m.t}</span></div>`;
-});
-
-$("#out").innerHTML=h;
-// Auto-open first card
-const first=$("#out .card-b");
-if(first){first.classList.add("open");const a=first.previousElementSibling.querySelector(".arr");if(a)a.classList.add("open");}
+function nav(){
+var h="";for(var i=0;i<SE.length;i++){var s=SE[i];
+h+='<button class="'+(s.id===sid?"on":"")+'" onclick="go(\''+s.id+'\')"><span class="sn">'+s.sh+'</span><span class="sd">'+s.sub+'</span></button>';}
+$("ss").innerHTML=h;
+var c="";for(var i=0;i<CATS.length;i++){var ct=CATS[i];
+c+='<button class="'+(ct.id===cat?"on":"")+'" onclick="sw(\''+ct.id+'\')">'+ct.l+'</button>';}
+$("cs").innerHTML=c;
 }
 
-function tog(el){
-const b=el.nextElementSibling;
-const a=el.querySelector(".arr");
-b.classList.toggle("open");
-a.classList.toggle("open");
+function go(id){sid=id;cat="tr";nav();ren();}
+function sw(id){cat=id;nav();ren();}
+
+function tog(el){var card=el.closest('.card');card.classList.toggle('open');}
+
+function ren(){
+var s=null;for(var i=0;i<SE.length;i++){if(SE[i].id===sid){s=SE[i];break;}}
+if(!s)return;
+var tc="tag-"+s.cl;
+var items=[];var h="";var title="";var count="";
+
+if(cat==="tr"){
+title="Trama";items=s.story||[];count="<b>"+items.length+"</b> secciones";
+for(var i=0;i<items.length;i++){var st=items[i];
+h+='<div class="card'+(i===0?" open":"")+'" style="animation-delay:'+Math.min(i*30,200)+'ms"><div class="card-h" onclick="tog(this)"><div class="lf"><div class="tl">'+st.t+'</div></div><span class="arr">▼</span></div><div class="card-bd">'+st.c+'</div></div>';
+}}
+
+else if(cat==="sc"){
+title="Escenas";items=s.scenes||[];count="<b>"+items.length+"</b> escenas";
+for(var i=0;i<items.length;i++){var sc=items[i];
+h+='<div class="card'+(i===0?" open":"")+'" style="animation-delay:'+Math.min(i*30,200)+'ms"><div class="card-h" onclick="tog(this)"><div class="lf"><div class="tl">'+sc.t+'</div><div class="meta"><span class="tag '+tc+'">'+sc.p+'</span><span>'+sc.time+'</span></div></div><span class="arr">▼</span></div><div class="card-bd">';
+h+='<div class="qt">'+sc.o+'</div>';
+h+='<div style="margin-bottom:6px">'+sc.s+'</div>';
+if(sc.d&&sc.d.length>0){h+='<div class="lbl">CDs y tiradas</div>';for(var j=0;j<sc.d.length;j++)h+='<div class="hk">'+sc.d[j]+'</div>';}
+if(sc.h&&sc.h.length>0){h+='<div class="lbl">🪝 Ganchos</div>';for(var j=0;j<sc.h.length;j++)h+='<div class="hk">'+sc.h[j]+'</div>';}
+if(sc.nu)h+='<div class="nd">💡 Si atascan: '+sc.nu+'</div>';
+if(sc.fa)h+='<div class="fl">🔄 Fail Forward: '+sc.fa+'</div>';
+h+='<div class="mu">🎵 '+sc.m+'</div>';
+h+='</div></div>';
+}}
+
+else if(cat==="en"){
+title="Combate";items=s.enemies||[];count="<b>"+items.length+"</b> criaturas";
+for(var i=0;i<items.length;i++){var e=items[i];
+h+='<div class="card'+(i===0?" open":"")+'" style="animation-delay:'+Math.min(i*30,200)+'ms"><div class="card-h" onclick="tog(this)"><div class="lf"><div class="tl">'+e.n+'</div><div class="meta"><span class="tag '+tc+'">CA '+e.ac+'</span><span class="tag '+tc+'">PG '+e.hp+'</span></div></div><span class="arr">▼</span></div><div class="card-bd">';
+h+='<b>Ataque:</b> '+e.at+'<br><b>Especial:</b> '+e.sp;
+h+='<div class="wr">Tacticas: '+e.tc+'</div>';
+h+='</div></div>';
+}}
+
+else if(cat==="np"){
+title="NPCs";items=s.npcs||[];count="<b>"+items.length+"</b> personajes";
+for(var i=0;i<items.length;i++){var n=items[i];
+h+='<div class="card" style="animation-delay:'+Math.min(i*30,200)+'ms"><div class="card-h" onclick="tog(this)"><div class="lf"><div class="tl">'+n.n+'</div><div class="meta"><span>'+n.d+'</span></div></div><span class="arr">▼</span></div><div class="card-bd">';
+h+='<div class="qt">'+n.l+'</div>';
+h+='<div class="nd" style="color:var(--acc)">🔒 '+n.sc+'</div>';
+h+='</div></div>';
+}}
+
+else if(cat==="pc"){
+title="Grupo";items=s.pcs||[];count="<b>"+items.length+"</b> PJs";
+for(var i=0;i<items.length;i++){var p=items[i];
+h+='<div class="card'+(i===0?" open":"")+'" style="animation-delay:'+Math.min(i*30,200)+'ms"><div class="card-h" onclick="tog(this)"><div class="lf"><div class="tl">'+p.n+' <span style="font-weight:400;color:var(--ink2)">'+p.c+'</span></div><div class="meta"><span class="tag '+tc+'">PG '+p.hp+'</span><span class="tag '+tc+'">CA '+p.ac+'</span></div></div><span class="arr">▼</span></div><div class="card-bd">';
+h+=p.k;
+h+='<div class="wr">⚠ '+p.w+'</div>';
+h+='</div></div>';
+}}
+
+else if(cat==="it"){
+title="Objetos";items=s.items||[];count="<b>"+items.length+"</b> items";
+for(var i=0;i<items.length;i++){var it=items[i];
+h+='<div class="card" style="animation-delay:'+Math.min(i*30,200)+'ms"><div class="card-h" onclick="tog(this)"><div class="lf"><div class="tl">'+it.n+'</div></div><span class="arr">▼</span></div><div class="card-bd">'+it.e+'<br><span style="color:var(--acc)">'+it.a+'</span></div></div>';
+}}
+
+else if(cat==="mu"){
+title="Musica";items=s.music||[];count="<b>"+items.length+"</b> pistas";
+for(var i=0;i<items.length;i++){var m=items[i];
+h+='<div class="row"><span class="rl">'+m.s+'</span><span class="rr">'+m.t+'</span></div>';
+}}
+
+$("mTitle").textContent=title;
+$("mCount").innerHTML=count;
+$("out").innerHTML=h||'<div class="empty"><div class="ei">📭</div>Sin contenido</div>';
 }
 
-function setSes(id){sid=id;cat="sc";renderNav();render();}
-function setCat(id){cat=id;renderNav();render();}
-
-function renderNav(){
-let sh="";SE.forEach(s=>{sh+=`<button class="${s.id===sid?"on":""}" onclick="setSes('${s.id}')">${s.sh}<br><span style="font-size:9px;font-weight:400">${s.sub}</span></button>`;});
-$("#sess").innerHTML=sh;
-let ch="";CATS.forEach(c=>{ch+=`<button class="${c.id===cat?"on":""}" onclick="setCat('${c.id}')">${c.l}</button>`;});
-$("#cats").innerHTML=ch;
-}
-
-renderNav();render();
+nav();ren();
 </script>
+</body></html>
